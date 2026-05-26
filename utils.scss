@@ -149,6 +149,11 @@ iframe {
   margin-top: -2em;
 }
 
+.filets {
+  border-top: 2px solid $uvsq-blue;
+  border-bottom: 2px solid $uvsq-blue;
+  padding: 1%;
+}
 
 
 // --- gestion des images ----
@@ -375,6 +380,12 @@ iframe {
 // .reveal .custom-table th.sorted-desc::after {
 //   content: " ▼";
 // }
+
+// timeline plugin
+
+.timeline .event::after {
+  background: $uvsq-blue;
+}
 
 // spinner
 
