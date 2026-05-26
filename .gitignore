@@ -1,0 +1,6 @@
+/.quarto/
+/_site/
+/img/
+/ms_utils/
+*.[pdf]
+**/*.quarto_ipynb

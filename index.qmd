@@ -1,0 +1,832 @@
+---
+title: "Autour des données de recherche et du Plan de Gestion des Données"
+subtitle: "PSF CREONS / UMI SOURCE"
+author: 
+  name: Michel [De Moura]{.smallcaps} et Marceau [Salvadori]{.smallcaps}
+  affiliation: (Direction des Bibliothèques et de l'Information Scientifique et Technique - UVSQ)
+date: "2026/05/27"
+date-format: "DD/MM/YYYY"
+bibliography: biblio.bib
+lang: fr
+format: 
+  revealjs: 
+    width: 1600
+    height: 900
+    # apparence -->
+    center-title-slide: true
+    # center: true
+    title-slide-attributes:
+            #data-background-image: 
+            #data-background-color: 
+      data-fullscreen: false
+      data-background-size: contain
+      data-background-opacity: "0.5"
+    incremental: true
+    theme: [default, utils.scss]
+    revealjs-plugins:
+      - ms_utils/plugins/fullscreen
+        #logo: 
+        # footer: 
+    # navigation options -->
+    preview-links: auto
+    link-external-newwindow: true
+    controls: true
+    scrollable: false
+    controls-layout: bottom-right
+    # chalkboard: true # won't work with embed-ressources set to true
+    # embed-resources: true # disable until ready to publish
+    # ----- options pdf ------>
+    slide-number: true
+    show-slide-number: print
+    show-notes: false
+    # toc: true
+    # toc-depth: 1
+    # resources: 
+    #   - fonts/LinBiolinum_R.woff2
+execute: 
+  cache: true
+---
+
+# Plan de la séance
+
+::: {.deux-colonnes}
+
+[01 | Introduction](#introduction)
+
+[02 | Défintions](#définitions)
+
+[04 | Le cycle de vie des données](#le-cycle-de-vie-des-données)
+
+[04 | Les principes FAIR](#les-principes-fair)
+
+[05 | Le Plan de Gestion des données](#le-plan-de-gestion-des-données)
+
+:::
+
+# 01 | Introduction
+
+## Contexte : les données dans la science ouverte
+
+::: {.callout-cit}
+
+La science ouverte est la diffusion sans entrave des résultats, des méthodes et des produits de la recherche scientifique. Elle s’appuie sur l’opportunité que représente la mutation numérique pour développer l’accès ouvert aux publications et – autant que possible – aux [données]{.fragment .highlight-red}, aux codes sources et aux méthodes de la recherche.
+
+:::
+
+[[2e Plan National pour la Science Ouverte](https://www.enseignementsup-recherche.gouv.fr/sites/default/files/content_migration/document/2e-plan-national-pour-la-science-ouverte-2021-2024-7794.pdf) (2021)]{.right}
+
+<br/>
+<br/>
+
+. . .
+
+Pour aller plus loin : [*Passeport pour la Science Ouverte*](https://www.ouvrirlascience.fr/wp-content/uploads/2020/09/Passeport-pour-la-science-ouverte-Guide-a-lusage-des-doctorants_04-09-2020_WEB.pdf)
+
+::: {.notes}
+
+Le livre blanc – une Science ouverte dans une République numérique, voit l’Open Science, d’un part, comme une nouvelle approche de l’accès aux preuves et connaissances scientifiques, et d’autre part, une nouvelle manière de FAIRE de la science, qui comprend l’ouverture et la transparence des processus de la recherche.
+https://www.science-ouverte.cnrs.fr/wp-content/uploads/2019/07/Livre-Blanc-loi-numerique-Octobre-2016.pdf
+Selon le Deuxième Plan national pour la science ouverte, « La science ouverte est la diffusion sans entrave des résultats, des méthodes et des produits de la recherche scientifique. Elle s’appuie sur l’opportunité que représente la mutation numérique pour développer l’accès ouvert aux publications et – autant que possible – aux données, aux codes sources et aux méthodes de la recherche » https://www.ouvrirlascience.fr/deuxieme-plan-national-pour-la-science-ouverte/
+A voir également :
+Passeport pour la science ouverte, guide pratique à l’usage des doctorantes et des doctorants, quel que soit leur discipline, 2024 (2ème édition). Il propose de bonnes pratiques et d’outils directement activables pour accompagner les doctorants à chaque étape de leur thèse.https://www.ouvrirlascience.fr/passeport-pour-la-science-ouverte-guide-pratique-a-lusage-des-doctorants/
+Science ouverte – Données de la recherche, guide dédié aux données de la recherche à destination des chercheurs quelle que soit la discipline, 2024 (Le guide aborde les principales notions concernant la gestion et la diffusion de données de la recherche).https://www.ouvrirlascience.fr/science-ouverte-donnees-de-la-recherche/
+https://doranum.fr/2024/03/14/nouveau-guide-science-ouverte-donnees-de-la-recherche-open-science-research-data/
+
+:::
+
+## Pourquoi partager ses données ?
+
+- Contribution à l'écosystème de la connaissance
+  - plus de transparence dans l'administration de la preuve
+  - bonne pratique d'intégrité scientifique (dans un contexte de crise de confiance dans les résultats de la recherche)
+  - évite la redondance, facilite la reproductibilité des recherches et la réutilisation des données (par d'autres chercheurs, par la société civile...)
+  - facilite la fouille de textes et de données à grande échelle
+
+## Pourquoi partager ses données (suite) ?
+
+- Des avantages pour vous-mêmes, en tant que chercheurs
+  - accroître la visibilité de vos travaux → cf. @colavizzaCitationAdvantageLinking2020
+  - éviter les pertes ou l'altération de vos données
+  - conserver une trace de votre recherche
+
+<br/><br/>
+
+- Sans oublier...
+  - répondre aux exigences de certains financeurs ou certaines revues → cf. [slide dédiée](#)
+
+::: {.notes}
+
+conditionne certains financements (Horizon Europe et ANR)
+conditionne la publication dans certaines revues scientifiques
+permet d’être conforme aux obligations légales relatives aux données publiques ( Plan national pour la science)
+permet de nouvelles formes de publication (data papers)
+permet d’éviter la perte dans le processus de recherche (cf. schéma Moysan)
+permet de se prémunir contre la perte ou l'altération
+permet de conserver un trace de sa recherche
+permet de réutiliser ses données dans un projet futur 
+
+:::
+
+## Pourquoi partager ses données (fin) ?
+
+Reprendre et résumer les slides de Karine sur les politiques publiques : de l'*open access* à la science ouverte, une institution progressive, demandes des financeurs, des revues...
+
+# 02 | Définitions
+
+<br/><br/>
+
+. . .
+
+[Qu’appelle-t-on données de la recherche ?]{.right}
+
+## Une définition (de l’OCDE, en 2007)
+
+::: {.callout-cit}
+
+Enregistrements factuels (chiffres, images, sons, vidéos…), qui sont utilisés comme sources principales pour la recherche scientifique et sont également reconnus par la communauté scientifique comme nécessaires pour valider les résultats de recherche.
+
+:::
+
+[Principes et lignes directrices pour l’accès aux données de la recherche financée sur fonds publics](https://www.oecd.org/fr/science/inno/38500823.pdf) (2007 → fait toujours référence)
+
+## Autres définitions possibles
+
+::: {.callout-cit}
+
+Les données de la recherche désignent les informations, et en particulier les faits ou chiffres collectés pour être analysés et traités pour alimenter des réflexions, discussions ou calculs. Dans un contexte de recherche, ces données sont, par exemple, des statistiques, des résultats d'expériences, des mesures, des observations sur le terrain, des résultats d'enquêtes, des enregistrements d'entretiens ou des images. Il s'agit plus spécifiquement de données disponibles sous forme numérique.
+
+:::
+
+[Lignes directrices pour le libre accès aux publications scientifiques et aux données de la recherche dans Horizon 2020](https://www.enssib.fr/bibliotheque-numerique/documents/66433-lignes-directrices-pour-le-libre-acces-aux-publications-scientifiques-et-aux-donnees-de-la-recherche-dans-horizon-2020.pdf) (2016)
+
+##
+
+::: {.callout-cit}
+
+Aux fins de la présente directive, on entend par « données de la recherche », des documents se présentant sous forme numérique, autres que des publications scientifiques, qui sont recueillis ou produits au cours d'activités de recherche scientifique et utilisés comme éléments probants dans le processus de recherche, ou dont la communauté scientifique admet communément qu'ils sont nécessaires pour valider des conclusions et résultats de la recherche.
+
+:::
+
+[Directive UE 2019/2014 concernant les données ouvertes, art. 2§9](https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=uriserv:OJ.L_.2019.172.01.0056.01.FRA) (2019)
+
+
+## En résumé
+
+- Les données de la recherche sont définiies comme l'unité de base sur laquelle s'appuie le raisonnement scientifique, unité qui sous-tend les hypothèses de recherche d'une part, l'administration de la preuve d'autre part.
+
+- Ce sont des objets très hétérogènes, nécessairement **numériques**, complémentaires des publications proprement dites, mais qui peuvent exister indépendamment de ces dernières.
+
+- Le terme est parfois trompeur, dans la mesure où les données ne sont pas "données" (mais captées, construites ou reconstuites).
+
+- Dans certains champs, on préférera parler de *sources* ou de *matériaux*, non sans malentendus liés aux traditions épistémologiques ou méthodologiques disciplinaires.
+
+## Tentative de typologie 
+
+::: {.mval}
+
+La suite de cette présentation propose une typologie des données de recherche, inspirée notamment de @borgmanQuestceQueTravail2020a. 
+
+Cette typologie ne fait pas autorité : elle vise surtout à mieux faire comprendre, par l'exemple, ce que recouvrent les données de la recherche dans différentes disciplines.  
+
+:::
+
+## Données d'observation
+
+- Collectées sur le terrain, à l'aide d'instruments. Souvent uniques et irremplaçables.
+  - Enquêtes (par exemple sur les comportements sociaux), 
+  - Relevés de terrain \(ex : suivi de croissance de plantes), 
+  - Relevés de température/pollution,
+  - Compte-rendus d'entretiens qualitatifs,
+  - Images microscopiques,
+  - Télédétection
+
+. . .
+
+→ Le partage de ces données est recommandé, pour enrichir la connaissance et éviter la perte de données.
+
+::: {.notes}
+
+Données d'observation
+Description : Ce sont des données collectées directement sur le terrain ou à travers des observations, souvent uniques et spécifiques à une situation donnée.
+Exemples :
+Environnement : Relevés de température ou de pollution dans différents lieux.
+Sociologie : Enquêtes et observations sur les comportements sociaux lors d'événements publics.
+Agronomie : Suivi de la croissance de plantes dans des conditions naturelles.
+
+:::
+
+## Données de simulation (ou données "computationnelles")
+
+- Générées à partir de modèles (souvent informatiques) appliqués à différentes réalités 
+  - Modèles économiques (ex : impact d’une politique fiscale, modélisation du comportement d'un marché...), 
+  - Modèles climatiques, 
+  - Modèles de croissance végétale, 
+  - Simulation de résistance des matériaux 
+
+. . .   
+
+→ Le modèle -- c'est-à-dire souvent l'algorithme informatique qui le sous-tend -- a souvent plus de valeur que les données elles-mêmes (les entrées et les sorties).
+
+::: {.notes}
+
+2. Données de simulation
+Description : Les données de simulation sont générées à partir de modèles théoriques ou informatiques, qui imitent la réalité dans un but d’analyse ou de prédiction.
+Exemples :
+Économie : Modélisation de l'impact d'une politique fiscale sur une économie nationale.
+Climat : Modèles climatiques simulant les changements de température sur plusieurs décennies.
+Ingénierie : Simulation de la résistance d'un matériau sous différentes conditions de stress.
+
+:::
+
+## Données expérimentales
+
+- Issues de protocoles scientifiques reproductibles, souvent en laboratoire
+  - Résultats d’essais cliniques, agronomiques, 
+  - séquences ADN, 
+  - chromatogrammes, 
+  - mesures de réactions chimiques, 
+  - tests psychométriques en environnement contrôlé
+
+. . .   
+
+→ Les protocoles sont pensés pour "établir des hypothèses ou mettre à l’épreuve de nouvelles lois" (Borgman). Partager ces données permet de répliquer les expériences, et évite les duplications longues et coûteuses.
+
+## Données dérivées / compilées
+
+. . . 
+
+Cette catégorie et la suivante sont absentes des distinctions de @borgmanQuestceQueTravail2020a : elles ont émergé pour typer des données qui ne "rentraient" pas facilement dans les précédentes catégories.
+
+
+- Produites à partir de données brutes existantes ou par fouille de données ou de texte
+  - Résultats de data/text mining (tendances de consommations, de consultations...), 
+  - Méga-bases compilées (ex. 1M comptes Twitter)
+  - Corpus de textes et/ou d'archives numérisés
+  - Compilation de résultats électoraux mondiaux
+  - Agrégation de données satellites
+
+. . .   
+
+→ Processus coûteux : mutualisation recommandée ; nécessitent toujours une analyse humaine consciente des biais possibles dans la création du corpus.
+
+## Données de référence / canoniques
+
+- Données standardisées et validées, utilisées comme ressources stables
+  - Données INSEE (enquêtes quantitatives longitudinales ou répétées régulièrement)
+  - Bases génomiques (National Genomics Database)
+  - Collections statistiques annotées, 
+  - Observation de rituels culturels
+
+. . .   
+
+→ Utilisées comme socles dans de nombreuses disciplines
+
+## ajouter ici quelques exemples tirés de datasuds
+
+::: {.notes}
+
+1. Données d'observation
+Description : Ce sont des données collectées directement sur le terrain ou à travers des observations, souvent uniques et spécifiques à une situation donnée.
+Exemples :
+Environnement : Relevés de température ou de pollution dans différents lieux.
+Sociologie : Enquêtes et observations sur les comportements sociaux lors d'événements publics.
+Agronomie : Suivi de la croissance de plantes dans des conditions naturelles.
+
+3. Données expérimentales
+Description : Résultats obtenus à partir d'expériences contrôlées, souvent en laboratoire. Ces données sont reproductibles et permettent de tester des hypothèses spécifiques.
+Exemples :
+Médecine : Résultats d'essais cliniques pour tester l'efficacité d'un médicament.
+Chimie : Mesures de réactions chimiques dans des conditions spécifiques.
+Psychologie : Tests psychométriques réalisés dans des environnements contrôlés pour observer des comportements.
+4. Données dérivées ou compilées
+Description : Ces données proviennent de la combinaison ou de l’analyse de plusieurs sources de données existantes, souvent à travers des techniques telles que la fouille de données ou la compilation d'ensembles massifs.
+Exemples :
+Marketing : Analyse des tendances des consommateurs en combinant des données de ventes, des enquêtes et des réseaux sociaux.
+Politique : Compilation de résultats d’élections dans différents pays pour analyser les tendances politiques mondiales.
+Météorologie : Agrégation de données de différents satellites pour prévoir les conditions climatiques à une échelle mondiale.
+
+5. Données de référence / canoniques
+Description : Ce sont des données de haute qualité, validées et utilisées comme référence ou base pour des recherches futures. Elles sont souvent standardisées et largement partagées.
+Exemples :
+Génétique : Base de données génomiques comme celle de la National Genomics Database qui contient des séquences génétiques pour différentes espèces.
+Données géographiques : Cartes géographiques comme celles produites par l'INSEE ou l'IGN, utilisées comme référence pour des études urbaines ou environnementales.
+Économie : Données économiques publiques fournies par des organisations comme l'OCDE ou la Banque Mondiale, souvent utilisées comme référence pour des analyses macroéconomiques.
+6. Données qualitatives
+Description : Ce sont des données non numériques qui fournissent des informations riches et détaillées sur un phénomène. Elles sont souvent utilisées pour analyser des contextes ou des comportements.
+Exemples :
+Sociologie : Interviews profondes sur les perceptions des citoyens concernant une réforme politique.
+Anthropologie : Observation des rituels ou des pratiques culturelles au sein d'une communauté.
+Marketing : Analyse des avis clients sous forme de commentaires ou de discussions en ligne.
+
+> https://sciencespo.libguides.com/donnees-de-la-recherche/bases
+On distingue différents types de données. Des données :
+D'observation  : enregistrements sur le terrain. --> Conseil : mettre ces données à disposition de la communauté à des fins d’information et de connaissance fine des sujets puisqu’elles sont uniques et irremplaçables. Des outils utiles pour réaliser vos questionnaires : Qualtrics, Survalyzer, ModaLisa, LimeSurvey...
+De simulation : modèles économiques, schéma à partir d’une réalité économique par exemple. On pense tirer de la rentabilité d'une configuration d'action et on applique le modèle sur un marché particulier ; on teste un modèle qui marche sur un marché sur un autre marché. Les données ont moins de valeur que le modèle. Enjeu : voir comment un modèle qui s’applique à une réalité peut marcher sur une autre.
+D'expérimentation : en laboratoire, ces données sont obtenues à partir de matériel spécifique ; elles sont reproductibles mais à des coûts dissuasifs et le processus est chronophage. Conseil : mettre ces données à disposition de tous pour éviter de repayer pour obtenir le même résultat, faire gagner du temps.
+Dérivées ou compilées : compilation de données brutes, résultats de fouille de texte (text mining) et de fouille de données (data mining). Le but : extraire la substantifique moelle d’un sujet. Il peut s'agir de la création de nouveaux ensembles de données par combinaison de données provenant de sources multiples ou immenses comme l'analyse d’un million de comptes twitter. Les tendances dégagées par un algorithme de fouille restent un préalable à l’indispensable analyse humaine. Le processus est cher et chronophage.
+De référence ou canoniques : jeux de données annotés, revus par les pairs, mis à disposition comme données de référence : collections statistiques, données Insee, données en génomique.
+> https://callisto-formation.fr/course/view.php?id=258 : La Biologie se caractérise par un grand nombre de types de données : séquences, motifs, graphes pour décrire les voies métaboliques ou les interactions, données quantitatives de suivi d'expression, données temporelles, images au contenu informationnel varié (résolution, traitements différents), informations spatiales et géographiques, modèles, données textuelles, etc. 
+> https://coop-ist.cirad.fr/gerer-des-donnees/s-initier-en-ligne-aux-donnees-de-la-recherche/1-familiarisez-vous-avec-le-concept-de-donnees-de-la-recherche
+On distingue généralement les grandes catégories de données suivantes :
+données d’observation : données d’enquêtes, données de télédétection, données d’échantillonnage, enregistrements sur le terrain, images numériques en microscopie…données expérimentales : séquences de gènes, chromatogrammes, résultats d’essais agronomiques, de sélection végétale ou animale…
+modèles et simulations : modèles climatiques, modèles économiques, modèles de croissance des plantes, modèles de production agricole, modèles multi-agents de gestion des ressources renouvelables, modèles d’accompagnement ou companion modelling…
+ données dérivées ou compilées : bases de données issues de la compilation d’un ensemble de données collectées et/ou créées, résultats de fouille de texte (text mining) ou de fouille de données (data mining).
+
+:::
+
+# 03 | Le cycle de vie des données
+
+## Des données vivantes ?
+
+
+Les projets de recherche s'élaborent à partir de matériaux, de sources, d'expériences...
+
+. . . 
+
+... un ensemble de *données* collectées, manipulées, analysées par les chercheurs...
+
+. . .
+
+... le long d'un processus qui s'achève souvent par une publication (article, livre, colloque...).
+
+. . .
+
+<br/><br/>
+
+→ Entre le début et la fin du projet, les données ont été transformées, elles ont vécu, la manière de les interpréter, leur signification même ont pu changer. 
+
+. . .
+
+[On parle couramment, en ce sens, d'un *cycle de vie* de la donnée.]{.right}
+
+##  {data-background-image="img/Cycle-vie-fr-PGD.png" data-background-size="contain" data-background-position="right"}
+
+[On peut voir ce cycle comme un cercle...]{.absolute top=40%}
+
+[(Repris de DORANUM)]{.absolute top=70%}
+
+## {data-background-image="img/Devoteam_DataLyfecycle2.png" data-background-size="contain" data-background-position="right"}
+
+[(un autre cercle)]{.absolute top=40%}
+
+[[Source](https://www.devoteam.com/expert-view/cloud-data-lifecycle-a-deep-dive-part-1/)]{.absolute top=70%}
+
+
+##
+
+... ou comme un *cheminement*...
+<br/><br/>
+
+::: {.centered}
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1093.9346088964842 652" width="1093.9346088964842" height="652"><!-- svg-source:excalidraw --><metadata></metadata><defs><style class="style-fonts">
+      @font-face { font-family: Nunito; src: url(data:font/woff2;base64,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); }</style></defs><rect x="0" y="0" width="1093.9346088964842" height="652" fill="#ffffff"></rect><g stroke-linecap="round" transform="translate(10 10) rotate(0 110.39999389648438 70)"><path d="M32 0 C91.12 2.2, 156.81 -3.15, 188.8 0 C209.01 -1.55, 222.69 8.5, 220.8 32 C218.69 52.79, 217.49 73.32, 220.8 108 C219.33 127.83, 213.3 143.54, 188.8 140 C151.35 137.33, 113.39 135.76, 32 140 C12.44 137.71, -0.14 129.2, 0 108 C3.78 84.03, 0.22 68.19, 0 32 C-2.18 11.74, 13.62 -1.52, 32 0" stroke="none" stroke-width="0" fill="#5b2346"></path><path d="M32 0 C64.68 -0.47, 96.96 -1.67, 188.8 0 M32 0 C85.42 0.56, 137.41 -0.08, 188.8 0 M188.8 0 C209.82 0.93, 222.36 9.07, 220.8 32 M188.8 0 C208.79 0.12, 221.96 11.48, 220.8 32 M220.8 32 C220.24 58.4, 219.62 84.62, 220.8 108 M220.8 32 C220.33 61.75, 221.4 93.39, 220.8 108 M220.8 108 C221.4 128.64, 209.06 139.09, 188.8 140 M220.8 108 C219.52 131.54, 209.84 138.82, 188.8 140 M188.8 140 C147.03 142.42, 101.32 140.83, 32 140 M188.8 140 C155.45 140.39, 121.55 141.41, 32 140 M32 140 C9.97 139.56, 1.19 131.23, 0 108 M32 140 C9.34 138.8, -0.22 129.18, 0 108 M0 108 C2.26 77.18, 1.63 48, 0 32 M0 108 C0.97 84.35, 0.3 59.99, 0 32 M0 32 C-1.94 12.21, 9.9 -1.69, 32 0 M0 32 C2.01 9.26, 10.56 -0.49, 32 0" stroke="#1e1e1e" stroke-width="2" fill="none"></path></g><g transform="translate(18.03010559082037 26) rotate(0 102.36988830566403 54)"><text x="102.36988830566406" y="20.08" font-family="Nunito, Segoe UI Emoji" font-size="20px" fill="#ffffff" text-anchor="middle" style="white-space: pre;" direction="ltr" dominant-baseline="alphabetic">Etape 1</text><text x="102.36988830566406" y="47.08" font-family="Nunito, Segoe UI Emoji" font-size="20px" fill="#ffffff" text-anchor="middle" style="white-space: pre;" direction="ltr" dominant-baseline="alphabetic"></text><text x="102.36988830566406" y="74.08" font-family="Nunito, Segoe UI Emoji" font-size="20px" fill="#ffffff" text-anchor="middle" style="white-space: pre;" direction="ltr" dominant-baseline="alphabetic">Proposal Planning and</text><text x="102.36988830566406" y="101.08" font-family="Nunito, Segoe UI Emoji" font-size="20px" fill="#ffffff" text-anchor="middle" style="white-space: pre;" direction="ltr" dominant-baseline="alphabetic">Writing</text></g><g stroke-linecap="round" transform="translate(303.1346209999999 10) rotate(0 110.39999389648438 59)"><path d="M29.5 0 C76.09 2.71, 118.75 -3.31, 191.3 0 C208.06 -2.99, 220.6 7.05, 220.8 29.5 C222.09 49.35, 222.17 73.02, 220.8 88.5 C220.09 108.22, 211.05 121.45, 191.3 118 C127.47 115.47, 70.57 112.44, 29.5 118 C12.38 117.27, 0.25 105.72, 0 88.5 C1.19 73.77, 2.11 59.17, 0 29.5 C2.63 12.77, 11.59 -2.88, 29.5 0" stroke="none" stroke-width="0" fill="#5b2346"></path><path d="M29.5 0 C66.04 1.67, 101.27 0.4, 191.3 0 M29.5 0 C76.11 -1.34, 122.88 -1.99, 191.3 0 M191.3 0 C212.83 1.88, 219 10.31, 220.8 29.5 M191.3 0 C210.34 -1.47, 220.01 10.56, 220.8 29.5 M220.8 29.5 C222.45 43.22, 222.95 56.97, 220.8 88.5 M220.8 29.5 C221.05 41.24, 220.27 53.72, 220.8 88.5 M220.8 88.5 C218.92 107.52, 210.64 117.19, 191.3 118 M220.8 88.5 C219.25 110.18, 210.64 120.08, 191.3 118 M191.3 118 C151.9 118.25, 111.19 117.97, 29.5 118 M191.3 118 C141.45 117.47, 92.51 118.74, 29.5 118 M29.5 118 C10.61 116.66, -0.3 107.29, 0 88.5 M29.5 118 C10.84 118.34, 1.67 106.12, 0 88.5 M0 88.5 C2.05 74.56, 0.03 60.48, 0 29.5 M0 88.5 C-0.04 69.05, -1.1 50.41, 0 29.5 M0 29.5 C0.99 8, 9.38 0.27, 29.5 0 M0 29.5 C-2.29 9.25, 9.26 -0.4, 29.5 0" stroke="#1e1e1e" stroke-width="2" fill="none"></path></g><g transform="translate(321.6947177407226 15) rotate(0 91.83989715576172 54)"><text x="91.83989715576172" y="20.08" font-family="Nunito, Segoe UI Emoji" font-size="20px" fill="#ffffff" text-anchor="middle" style="white-space: pre;" direction="ltr" dominant-baseline="alphabetic">Etape 2</text><text x="91.83989715576172" y="47.08" font-family="Nunito, Segoe UI Emoji" font-size="20px" fill="#ffffff" text-anchor="middle" style="white-space: pre;" direction="ltr" dominant-baseline="alphabetic"></text><text x="91.83989715576172" y="74.08" font-family="Nunito, Segoe UI Emoji" font-size="20px" fill="#ffffff" text-anchor="middle" style="white-space: pre;" direction="ltr" dominant-baseline="alphabetic">Project Start-up and</text><text x="91.83989715576172" y="101.08" font-family="Nunito, Segoe UI Emoji" font-size="20px" fill="#ffffff" text-anchor="middle" style="white-space: pre;" direction="ltr" dominant-baseline="alphabetic">Data Management</text></g><g stroke-linecap="round" transform="translate(583.1346209999999 10) rotate(0 110.39999389648438 59)"><path d="M29.5 0 C76.38 0.01, 125.89 -1.38, 191.3 0 C213.37 -2.11, 220.28 11.74, 220.8 29.5 C222.42 51.81, 216.98 76.91, 220.8 88.5 C223.46 107.26, 214.43 114.54, 191.3 118 C141.8 118.84, 96.55 115.69, 29.5 118 C12.89 118.58, -1.82 111.17, 0 88.5 C-0.37 73.92, 2.29 65.04, 0 29.5 C-0.62 10.14, 13.15 -2.37, 29.5 0" stroke="none" stroke-width="0" fill="#5b2346"></path><path d="M29.5 0 C72.15 1.78, 109.89 -0.3, 191.3 0 M29.5 0 C73.36 -0.02, 115.64 0.8, 191.3 0 M191.3 0 C209.19 0.36, 220.89 11.57, 220.8 29.5 M191.3 0 C209.3 -0.44, 221.17 11.18, 220.8 29.5 M220.8 29.5 C221.32 47.68, 222.08 64.86, 220.8 88.5 M220.8 29.5 C220.06 43.59, 221.66 58.77, 220.8 88.5 M220.8 88.5 C221.51 108.56, 209.38 118.86, 191.3 118 M220.8 88.5 C220.8 106.8, 210.36 118.51, 191.3 118 M191.3 118 C156.14 118.75, 126.52 117.1, 29.5 118 M191.3 118 C148.17 119.6, 102.34 119.2, 29.5 118 M29.5 118 C10.72 116.79, -0.13 108.15, 0 88.5 M29.5 118 C8.07 118, 0.51 109.88, 0 88.5 M0 88.5 C1.09 70.91, 2.01 50.65, 0 29.5 M0 88.5 C0.4 67.73, 0.76 45.88, 0 29.5 M0 29.5 C-1.55 9.03, 8.15 0.88, 29.5 0 M0 29.5 C1.67 9.3, 9.68 -0.22, 29.5 0" stroke="#1e1e1e" stroke-width="2" fill="none"></path></g><g transform="translate(604.3647082802734 15) rotate(0 89.16990661621094 54)"><text x="89.16990661621094" y="20.08" font-family="Nunito, Segoe UI Emoji" font-size="20px" fill="#ffffff" text-anchor="middle" style="white-space: pre;" direction="ltr" dominant-baseline="alphabetic">Etape 3</text><text x="89.16990661621094" y="47.08" font-family="Nunito, Segoe UI Emoji" font-size="20px" fill="#ffffff" text-anchor="middle" style="white-space: pre;" direction="ltr" dominant-baseline="alphabetic"></text><text x="89.16990661621094" y="74.08" font-family="Nunito, Segoe UI Emoji" font-size="20px" fill="#ffffff" text-anchor="middle" style="white-space: pre;" direction="ltr" dominant-baseline="alphabetic">Data Collection and</text><text x="89.16990661621094" y="101.08" font-family="Nunito, Segoe UI Emoji" font-size="20px" fill="#ffffff" text-anchor="middle" style="white-space: pre;" direction="ltr" dominant-baseline="alphabetic">File Creation</text></g><g stroke-linecap="round" transform="translate(863.1346211035154 10) rotate(0 110.39999389648438 55)"><path d="M27.5 0 C89.53 3.06, 149.99 -0.32, 193.3 0 C212.35 -2.2, 223.73 10.31, 220.8 27.5 C220.16 47.52, 222.07 68.49, 220.8 82.5 C220.62 103.52, 211.84 107.98, 193.3 110 C133.48 114.3, 71.26 110.68, 27.5 110 C12.61 112.52, -1.12 98.58, 0 82.5 C-0.75 68.48, -1.7 55.46, 0 27.5 C-3.19 9.63, 10.32 -2.16, 27.5 0" stroke="none" stroke-width="0" fill="#5b2346"></path><path d="M27.5 0 C83.95 2.25, 139.44 0.41, 193.3 0 M27.5 0 C70.53 1.48, 114.95 0.3, 193.3 0 M193.3 0 C213 -0.69, 222.15 9.28, 220.8 27.5 M193.3 0 C212.13 -1.8, 220.67 11.08, 220.8 27.5 M220.8 27.5 C221.45 40.68, 219.79 56.31, 220.8 82.5 M220.8 27.5 C220.87 41.06, 221.68 54.33, 220.8 82.5 M220.8 82.5 C219.38 102.69, 210.26 109.69, 193.3 110 M220.8 82.5 C219.17 101.72, 209.92 109.98, 193.3 110 M193.3 110 C140.25 111.91, 88.53 113.49, 27.5 110 M193.3 110 C139.61 108.57, 84.87 110.43, 27.5 110 M27.5 110 C10.07 109.05, -0.36 99.97, 0 82.5 M27.5 110 C6.91 107.74, 1.61 100.39, 0 82.5 M0 82.5 C-1.32 65.87, 1.48 48.17, 0 27.5 M0 82.5 C0.33 66.07, -0.4 48.58, 0 27.5 M0 27.5 C-1.55 9.59, 9.31 -1.41, 27.5 0 M0 27.5 C-0.39 10.85, 6.95 -0.69, 27.5 0" stroke="#1e1e1e" stroke-width="2" fill="none"></path></g><g transform="translate(910.8446888525389 24.5) rotate(0 62.68992614746094 40.5)"><text x="62.68992614746094" y="20.08" font-family="Nunito, Segoe UI Emoji" font-size="20px" fill="#ffffff" text-anchor="middle" style="white-space: pre;" direction="ltr" dominant-baseline="alphabetic">Etape 4</text><text x="62.68992614746094" y="47.08" font-family="Nunito, Segoe UI Emoji" font-size="20px" fill="#ffffff" text-anchor="middle" style="white-space: pre;" direction="ltr" dominant-baseline="alphabetic"></text><text x="62.68992614746094" y="74.08" font-family="Nunito, Segoe UI Emoji" font-size="20px" fill="#ffffff" text-anchor="middle" style="white-space: pre;" direction="ltr" dominant-baseline="alphabetic">Data Analysis</text></g><g transform="translate(23.13462099999998 210) rotate(0 99.99999999999997 202.5)"><text x="0" y="20.08" font-family="Nunito, Segoe UI Emoji" font-size="20px" fill="#1e1e1e" text-anchor="start" style="white-space: pre;" direction="ltr" dominant-baseline="alphabetic">&gt; Conduct review of</text><text x="0" y="47.08" font-family="Nunito, Segoe UI Emoji" font-size="20px" fill="#1e1e1e" text-anchor="start" style="white-space: pre;" direction="ltr" dominant-baseline="alphabetic">existing datasets</text><text x="0" y="74.08" font-family="Nunito, Segoe UI Emoji" font-size="20px" fill="#1e1e1e" text-anchor="start" style="white-space: pre;" direction="ltr" dominant-baseline="alphabetic">&gt; Determine whether</text><text x="0" y="101.08" font-family="Nunito, Segoe UI Emoji" font-size="20px" fill="#1e1e1e" text-anchor="start" style="white-space: pre;" direction="ltr" dominant-baseline="alphabetic">project will produce a</text><text x="0" y="128.07999999999998" font-family="Nunito, Segoe UI Emoji" font-size="20px" fill="#1e1e1e" text-anchor="start" style="white-space: pre;" direction="ltr" dominant-baseline="alphabetic">new dataset</text><text x="0" y="155.07999999999998" font-family="Nunito, Segoe UI Emoji" font-size="20px" fill="#1e1e1e" text-anchor="start" style="white-space: pre;" direction="ltr" dominant-baseline="alphabetic">&gt; Describe special</text><text x="0" y="182.07999999999998" font-family="Nunito, Segoe UI Emoji" font-size="20px" fill="#1e1e1e" text-anchor="start" style="white-space: pre;" direction="ltr" dominant-baseline="alphabetic">archiving challenges,</text><text x="0" y="209.07999999999998" font-family="Nunito, Segoe UI Emoji" font-size="20px" fill="#1e1e1e" text-anchor="start" style="white-space: pre;" direction="ltr" dominant-baseline="alphabetic">especially involved</text><text x="0" y="236.07999999999998" font-family="Nunito, Segoe UI Emoji" font-size="20px" fill="#1e1e1e" text-anchor="start" style="white-space: pre;" direction="ltr" dominant-baseline="alphabetic">consent and</text><text x="0" y="263.08" font-family="Nunito, Segoe UI Emoji" font-size="20px" fill="#1e1e1e" text-anchor="start" style="white-space: pre;" direction="ltr" dominant-baseline="alphabetic">confidentiality</text><text x="0" y="290.08" font-family="Nunito, Segoe UI Emoji" font-size="20px" fill="#1e1e1e" text-anchor="start" style="white-space: pre;" direction="ltr" dominant-baseline="alphabetic">&gt; Identify potential</text><text x="0" y="317.08" font-family="Nunito, Segoe UI Emoji" font-size="20px" fill="#1e1e1e" text-anchor="start" style="white-space: pre;" direction="ltr" dominant-baseline="alphabetic">users</text><text x="0" y="344.08" font-family="Nunito, Segoe UI Emoji" font-size="20px" fill="#1e1e1e" text-anchor="start" style="white-space: pre;" direction="ltr" dominant-baseline="alphabetic">&gt; Determine costs</text><text x="0" y="371.08" font-family="Nunito, Segoe UI Emoji" font-size="20px" fill="#1e1e1e" text-anchor="start" style="white-space: pre;" direction="ltr" dominant-baseline="alphabetic">related to archiving</text><text x="0" y="398.08" font-family="Nunito, Segoe UI Emoji" font-size="20px" fill="#1e1e1e" text-anchor="start" style="white-space: pre;" direction="ltr" dominant-baseline="alphabetic"></text></g><g transform="translate(323.1346209999999 210) rotate(0 100 135)"><text x="0" y="20.08" font-family="Nunito, Segoe UI Emoji" font-size="20px" fill="#1e1e1e" text-anchor="start" style="white-space: pre;" direction="ltr" dominant-baseline="alphabetic">&gt; Create data</text><text x="0" y="47.08" font-family="Nunito, Segoe UI Emoji" font-size="20px" fill="#1e1e1e" text-anchor="start" style="white-space: pre;" direction="ltr" dominant-baseline="alphabetic">management plan</text><text x="0" y="74.08" font-family="Nunito, Segoe UI Emoji" font-size="20px" fill="#1e1e1e" text-anchor="start" style="white-space: pre;" direction="ltr" dominant-baseline="alphabetic">&gt; Make decisions</text><text x="0" y="101.08" font-family="Nunito, Segoe UI Emoji" font-size="20px" fill="#1e1e1e" text-anchor="start" style="white-space: pre;" direction="ltr" dominant-baseline="alphabetic">about documentation</text><text x="0" y="128.07999999999998" font-family="Nunito, Segoe UI Emoji" font-size="20px" fill="#1e1e1e" text-anchor="start" style="white-space: pre;" direction="ltr" dominant-baseline="alphabetic">form and content</text><text x="0" y="155.07999999999998" font-family="Nunito, Segoe UI Emoji" font-size="20px" fill="#1e1e1e" text-anchor="start" style="white-space: pre;" direction="ltr" dominant-baseline="alphabetic">&gt; Conduct pre-tests</text><text x="0" y="182.07999999999998" font-family="Nunito, Segoe UI Emoji" font-size="20px" fill="#1e1e1e" text-anchor="start" style="white-space: pre;" direction="ltr" dominant-baseline="alphabetic">and pilot test of</text><text x="0" y="209.07999999999998" font-family="Nunito, Segoe UI Emoji" font-size="20px" fill="#1e1e1e" text-anchor="start" style="white-space: pre;" direction="ltr" dominant-baseline="alphabetic">materials and</text><text x="0" y="236.07999999999998" font-family="Nunito, Segoe UI Emoji" font-size="20px" fill="#1e1e1e" text-anchor="start" style="white-space: pre;" direction="ltr" dominant-baseline="alphabetic">methods</text><text x="0" y="263.08" font-family="Nunito, Segoe UI Emoji" font-size="20px" fill="#1e1e1e" text-anchor="start" style="white-space: pre;" direction="ltr" dominant-baseline="alphabetic"></text></g><g transform="translate(603.1346209999999 210) rotate(0 100 216)"><text x="0" y="20.08" font-family="Nunito, Segoe UI Emoji" font-size="20px" fill="#1e1e1e" text-anchor="start" style="white-space: pre;" direction="ltr" dominant-baseline="alphabetic">&gt; Follow best</text><text x="0" y="47.08" font-family="Nunito, Segoe UI Emoji" font-size="20px" fill="#1e1e1e" text-anchor="start" style="white-space: pre;" direction="ltr" dominant-baseline="alphabetic">practices</text><text x="0" y="74.08" font-family="Nunito, Segoe UI Emoji" font-size="20px" fill="#1e1e1e" text-anchor="start" style="white-space: pre;" direction="ltr" dominant-baseline="alphabetic">&gt; For data, address</text><text x="0" y="101.08" font-family="Nunito, Segoe UI Emoji" font-size="20px" fill="#1e1e1e" text-anchor="start" style="white-space: pre;" direction="ltr" dominant-baseline="alphabetic">dataset integrity,</text><text x="0" y="128.07999999999998" font-family="Nunito, Segoe UI Emoji" font-size="20px" fill="#1e1e1e" text-anchor="start" style="white-space: pre;" direction="ltr" dominant-baseline="alphabetic">variable names,</text><text x="0" y="155.07999999999998" font-family="Nunito, Segoe UI Emoji" font-size="20px" fill="#1e1e1e" text-anchor="start" style="white-space: pre;" direction="ltr" dominant-baseline="alphabetic">labels, and groups;</text><text x="0" y="182.07999999999998" font-family="Nunito, Segoe UI Emoji" font-size="20px" fill="#1e1e1e" text-anchor="start" style="white-space: pre;" direction="ltr" dominant-baseline="alphabetic">coding; missing data</text><text x="0" y="209.07999999999998" font-family="Nunito, Segoe UI Emoji" font-size="20px" fill="#1e1e1e" text-anchor="start" style="white-space: pre;" direction="ltr" dominant-baseline="alphabetic">&gt; For documentation,</text><text x="0" y="236.07999999999998" font-family="Nunito, Segoe UI Emoji" font-size="20px" fill="#1e1e1e" text-anchor="start" style="white-space: pre;" direction="ltr" dominant-baseline="alphabetic">explore use of DDI</text><text x="0" y="263.08" font-family="Nunito, Segoe UI Emoji" font-size="20px" fill="#1e1e1e" text-anchor="start" style="white-space: pre;" direction="ltr" dominant-baseline="alphabetic">standard; include all</text><text x="0" y="290.08" font-family="Nunito, Segoe UI Emoji" font-size="20px" fill="#1e1e1e" text-anchor="start" style="white-space: pre;" direction="ltr" dominant-baseline="alphabetic">relevant</text><text x="0" y="317.08" font-family="Nunito, Segoe UI Emoji" font-size="20px" fill="#1e1e1e" text-anchor="start" style="white-space: pre;" direction="ltr" dominant-baseline="alphabetic">documentation</text><text x="0" y="344.08" font-family="Nunito, Segoe UI Emoji" font-size="20px" fill="#1e1e1e" text-anchor="start" style="white-space: pre;" direction="ltr" dominant-baseline="alphabetic">elements; document</text><text x="0" y="371.08" font-family="Nunito, Segoe UI Emoji" font-size="20px" fill="#1e1e1e" text-anchor="start" style="white-space: pre;" direction="ltr" dominant-baseline="alphabetic">constructed variables</text><text x="0" y="398.08" font-family="Nunito, Segoe UI Emoji" font-size="20px" fill="#1e1e1e" text-anchor="start" style="white-space: pre;" direction="ltr" dominant-baseline="alphabetic"></text><text x="0" y="425.08" font-family="Nunito, Segoe UI Emoji" font-size="20px" fill="#1e1e1e" text-anchor="start" style="white-space: pre;" direction="ltr" dominant-baseline="alphabetic"></text></g><g transform="translate(883.1346209999999 190) rotate(0 100 94.5)"><text x="0" y="20.08" font-family="Nunito, Segoe UI Emoji" font-size="20px" fill="#1e1e1e" text-anchor="start" style="white-space: pre;" direction="ltr" dominant-baseline="alphabetic"></text><text x="0" y="47.08" font-family="Nunito, Segoe UI Emoji" font-size="20px" fill="#1e1e1e" text-anchor="start" style="white-space: pre;" direction="ltr" dominant-baseline="alphabetic">&gt; Manage master</text><text x="0" y="74.08" font-family="Nunito, Segoe UI Emoji" font-size="20px" fill="#1e1e1e" text-anchor="start" style="white-space: pre;" direction="ltr" dominant-baseline="alphabetic">datasets and work</text><text x="0" y="101.08" font-family="Nunito, Segoe UI Emoji" font-size="20px" fill="#1e1e1e" text-anchor="start" style="white-space: pre;" direction="ltr" dominant-baseline="alphabetic">files</text><text x="0" y="128.07999999999998" font-family="Nunito, Segoe UI Emoji" font-size="20px" fill="#1e1e1e" text-anchor="start" style="white-space: pre;" direction="ltr" dominant-baseline="alphabetic">&gt; Set up appropriate</text><text x="0" y="155.07999999999998" font-family="Nunito, Segoe UI Emoji" font-size="20px" fill="#1e1e1e" text-anchor="start" style="white-space: pre;" direction="ltr" dominant-baseline="alphabetic">file structures</text><text x="0" y="182.07999999999998" font-family="Nunito, Segoe UI Emoji" font-size="20px" fill="#1e1e1e" text-anchor="start" style="white-space: pre;" direction="ltr" dominant-baseline="alphabetic">&gt; Back up data!</text></g></svg>
+:::
+
+[suite →]{.absolute top=70% right=2%}
+
+## 
+
+::: {.centered}
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 571" width="1100" height="571"><!-- svg-source:excalidraw --><metadata></metadata><defs><style class="style-fonts">
+      @font-face { font-family: Nunito; src: url(data:font/woff2;base64,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); }</style></defs><rect x="0" y="0" width="1100" height="571" fill="#ffffff"></rect><g stroke-linecap="round" transform="translate(10 10) rotate(0 110.39999389648438 55)"><path d="M27.5 0 C92.77 -0.81, 157.67 0.94, 193.3 0 C211.96 0.69, 218.52 9.09, 220.8 27.5 C224.55 43.57, 224.25 61.36, 220.8 82.5 C221.78 103.23, 214.46 113.42, 193.3 110 C140.97 109.28, 87.12 110.51, 27.5 110 C7.41 111.65, -1.24 99.59, 0 82.5 C-0.34 69.61, -0.88 55.61, 0 27.5 C1.47 10.08, 7.66 -2.83, 27.5 0" stroke="none" stroke-width="0" fill="#5b2346"></path><path d="M27.5 0 C74.68 -1.64, 124.15 -1.84, 193.3 0 M27.5 0 C62.91 -1.92, 96.73 -1.62, 193.3 0 M193.3 0 C213.11 1.78, 220.71 8.71, 220.8 27.5 M193.3 0 C213.59 0.19, 219.73 8.49, 220.8 27.5 M220.8 27.5 C222.05 40.8, 220.18 54.9, 220.8 82.5 M220.8 27.5 C220.28 44.36, 219.86 61.69, 220.8 82.5 M220.8 82.5 C222.5 101.44, 211.82 109, 193.3 110 M220.8 82.5 C219.32 100.72, 210.46 109.24, 193.3 110 M193.3 110 C130.16 110.07, 65.76 111.69, 27.5 110 M193.3 110 C145.33 109.6, 97.47 110.48, 27.5 110 M27.5 110 C10.66 111.84, -0.41 101.93, 0 82.5 M27.5 110 C7.11 112.23, -2.23 99.86, 0 82.5 M0 82.5 C0.97 68.49, -1.5 53.07, 0 27.5 M0 82.5 C-0.01 68.95, -0.88 55.41, 0 27.5 M0 27.5 C1.83 9.96, 8.83 0.29, 27.5 0 M0 27.5 C-1.3 8.44, 9.85 -2.21, 27.5 0" stroke="#1e1e1e" stroke-width="2" fill="none"></path></g><g transform="translate(57.71006774902344 24.5) rotate(0 62.68992614746094 40.5)"><text x="62.68992614746094" y="20.08" font-family="Nunito, Segoe UI Emoji" font-size="20px" fill="#ffffff" text-anchor="middle" style="white-space: pre;" direction="ltr" dominant-baseline="alphabetic">Etape 4</text><text x="62.68992614746094" y="47.08" font-family="Nunito, Segoe UI Emoji" font-size="20px" fill="#ffffff" text-anchor="middle" style="white-space: pre;" direction="ltr" dominant-baseline="alphabetic"></text><text x="62.68992614746094" y="74.08" font-family="Nunito, Segoe UI Emoji" font-size="20px" fill="#ffffff" text-anchor="middle" style="white-space: pre;" direction="ltr" dominant-baseline="alphabetic">Data Analysis</text></g><g stroke-linecap="round" transform="translate(303.1346209999999 10) rotate(0 110.39999389648438 59)"><path d="M29.5 0 C84.98 -1.92, 137.52 -2.69, 191.3 0 C210.91 1.54, 223.53 13.16, 220.8 29.5 C222.67 49.05, 224.52 67.22, 220.8 88.5 C221.45 106.17, 208.2 118.39, 191.3 118 C133.92 121.92, 78.81 119.02, 29.5 118 C7.24 115.39, -2.41 107.11, 0 88.5 C1.95 72.28, -1.03 51.42, 0 29.5 C3.11 8.3, 7.2 -0.3, 29.5 0" stroke="none" stroke-width="0" fill="#5b2346"></path><path d="M29.5 0 C71.5 2.29, 118.7 1.81, 191.3 0 M29.5 0 C69.34 1.35, 107.66 0.23, 191.3 0 M191.3 0 C212.67 0.16, 219.87 9.25, 220.8 29.5 M191.3 0 C209.44 -0.18, 219.78 11.32, 220.8 29.5 M220.8 29.5 C220.8 46.91, 218.91 67.41, 220.8 88.5 M220.8 29.5 C221.36 46.85, 220.6 63.09, 220.8 88.5 M220.8 88.5 C219.52 108.07, 209.94 117.34, 191.3 118 M220.8 88.5 C222.65 107.75, 210.62 117.9, 191.3 118 M191.3 118 C140.04 119.61, 89.32 120.08, 29.5 118 M191.3 118 C152.22 119.47, 111.43 119.1, 29.5 118 M29.5 118 C8.05 119.94, -1.94 107.32, 0 88.5 M29.5 118 C8.96 119.53, -1.33 109.71, 0 88.5 M0 88.5 C-0.78 70.39, -1.49 51.15, 0 29.5 M0 88.5 C1.31 71.8, 0.23 54.46, 0 29.5 M0 29.5 C-1.13 9.21, 10.43 -1.92, 29.5 0 M0 29.5 C2.26 11.87, 11.59 -0.47, 29.5 0" stroke="#1e1e1e" stroke-width="2" fill="none"></path></g><g transform="translate(322.3947223183593 15) rotate(0 91.139892578125 54)"><text x="91.139892578125" y="20.08" font-family="Nunito, Segoe UI Emoji" font-size="20px" fill="#ffffff" text-anchor="middle" style="white-space: pre;" direction="ltr" dominant-baseline="alphabetic">Etape 5</text><text x="91.139892578125" y="47.08" font-family="Nunito, Segoe UI Emoji" font-size="20px" fill="#ffffff" text-anchor="middle" style="white-space: pre;" direction="ltr" dominant-baseline="alphabetic"></text><text x="91.139892578125" y="74.08" font-family="Nunito, Segoe UI Emoji" font-size="20px" fill="#ffffff" text-anchor="middle" style="white-space: pre;" direction="ltr" dominant-baseline="alphabetic">Preparing Data for</text><text x="91.139892578125" y="101.08" font-family="Nunito, Segoe UI Emoji" font-size="20px" fill="#ffffff" text-anchor="middle" style="white-space: pre;" direction="ltr" dominant-baseline="alphabetic">Sharing with Others</text></g><g stroke-linecap="round" transform="translate(583.1346209999999 10) rotate(0 110.39999389648438 55)"><path d="M27.5 0 C80.35 1.6, 136.04 3.39, 193.3 0 C211.3 3.03, 221.84 10.14, 220.8 27.5 C222.22 45.67, 218.81 68.22, 220.8 82.5 C222.38 100.1, 214.44 108.25, 193.3 110 C133.38 106.36, 76.23 107.91, 27.5 110 C8.82 108.4, -1.81 102.31, 0 82.5 C3.52 63.07, -2.22 46.42, 0 27.5 C-0.74 7.3, 9.72 -2.13, 27.5 0" stroke="none" stroke-width="0" fill="#5b2346"></path><path d="M27.5 0 C89.78 -1.81, 153.84 0.51, 193.3 0 M27.5 0 C92.88 0.46, 156.09 0.09, 193.3 0 M193.3 0 C210.3 -0.16, 219.91 10.46, 220.8 27.5 M193.3 0 C212.15 -0.66, 222.77 9.36, 220.8 27.5 M220.8 27.5 C220.1 38.54, 220.84 53.26, 220.8 82.5 M220.8 27.5 C220.21 45.63, 220.34 63.52, 220.8 82.5 M220.8 82.5 C222.41 100.47, 211.34 109.91, 193.3 110 M220.8 82.5 C221.16 99.19, 213.86 109.79, 193.3 110 M193.3 110 C142.17 111.65, 93.88 111.92, 27.5 110 M193.3 110 C127.38 111.88, 62.28 110.49, 27.5 110 M27.5 110 C8.41 111.33, -1.16 102.17, 0 82.5 M27.5 110 C9.63 108.7, -0.7 99.56, 0 82.5 M0 82.5 C0.3 62.56, 0.11 47.12, 0 27.5 M0 82.5 C-0.47 63.51, 0.39 44.18, 0 27.5 M0 27.5 C1.96 10.94, 10.7 -0.41, 27.5 0 M0 27.5 C0.94 7.99, 11.23 0.21, 27.5 0" stroke="#1e1e1e" stroke-width="2" fill="none"></path></g><g transform="translate(620.0846942421874 24.5) rotate(0 73.44992065429688 40.5)"><text x="73.44992065429688" y="20.08" font-family="Nunito, Segoe UI Emoji" font-size="20px" fill="#ffffff" text-anchor="middle" style="white-space: pre;" direction="ltr" dominant-baseline="alphabetic">Etape 6</text><text x="73.44992065429688" y="47.08" font-family="Nunito, Segoe UI Emoji" font-size="20px" fill="#ffffff" text-anchor="middle" style="white-space: pre;" direction="ltr" dominant-baseline="alphabetic"></text><text x="73.44992065429688" y="74.08" font-family="Nunito, Segoe UI Emoji" font-size="20px" fill="#ffffff" text-anchor="middle" style="white-space: pre;" direction="ltr" dominant-baseline="alphabetic">Depositing Data</text></g><g stroke-linecap="round" transform="translate(863.1346211035154 10) rotate(0 110.39999389648438 59)"><path d="M29.5 0 C84.61 0.34, 141.44 -1.72, 191.3 0 C213.37 2.83, 224.22 10.48, 220.8 29.5 C221.56 43.19, 222.79 56.59, 220.8 88.5 C222.45 106.93, 209.72 115.41, 191.3 118 C154.12 115.54, 115.83 118.62, 29.5 118 C10.74 116.5, -2.83 111.28, 0 88.5 C0.03 71.46, 1.33 56.01, 0 29.5 C-1.63 9.75, 7.67 -0.47, 29.5 0" stroke="none" stroke-width="0" fill="#5b2346"></path><path d="M29.5 0 C73.1 -1.29, 112.68 0.51, 191.3 0 M29.5 0 C78.71 0.39, 128.8 1.12, 191.3 0 M191.3 0 C211.42 -0.58, 222.52 10, 220.8 29.5 M191.3 0 C209.1 -1.98, 220.62 9.58, 220.8 29.5 M220.8 29.5 C221.56 44.47, 219.95 57.78, 220.8 88.5 M220.8 29.5 C221.3 46.73, 220.35 64.27, 220.8 88.5 M220.8 88.5 C221.11 106.73, 212.91 117.82, 191.3 118 M220.8 88.5 C220.84 108.36, 211.56 116.76, 191.3 118 M191.3 118 C134.66 118.8, 75.44 117.43, 29.5 118 M191.3 118 C126.68 117.98, 62.25 117.99, 29.5 118 M29.5 118 C10.23 116.87, -0.61 107.06, 0 88.5 M29.5 118 C10.71 115.9, 0.47 107.93, 0 88.5 M0 88.5 C0.91 74.41, 0.41 59.86, 0 29.5 M0 88.5 C0.81 73.54, 0.59 56.6, 0 29.5 M0 29.5 C0.82 8.81, 11.63 0.18, 29.5 0 M0 29.5 C0.44 8.37, 9.79 -0.04, 29.5 0" stroke="#1e1e1e" stroke-width="2" fill="none"></path></g><g transform="translate(892.1347202856443 15) rotate(0 81.39989471435547 54)"><text x="81.39989471435547" y="20.08" font-family="Nunito, Segoe UI Emoji" font-size="20px" fill="#ffffff" text-anchor="middle" style="white-space: pre;" direction="ltr" dominant-baseline="alphabetic">Etape 7</text><text x="81.39989471435547" y="47.08" font-family="Nunito, Segoe UI Emoji" font-size="20px" fill="#ffffff" text-anchor="middle" style="white-space: pre;" direction="ltr" dominant-baseline="alphabetic"></text><text x="81.39989471435547" y="74.08" font-family="Nunito, Segoe UI Emoji" font-size="20px" fill="#ffffff" text-anchor="middle" style="white-space: pre;" direction="ltr" dominant-baseline="alphabetic">After Deposit –</text><text x="81.39989471435547" y="101.08" font-family="Nunito, Segoe UI Emoji" font-size="20px" fill="#ffffff" text-anchor="middle" style="white-space: pre;" direction="ltr" dominant-baseline="alphabetic">Archival Activities</text></g><g transform="translate(10 210) rotate(0 100 81)"><text x="0" y="20.08" font-family="Nunito, Segoe UI Emoji" font-size="20px" fill="#1e1e1e" text-anchor="start" style="white-space: pre;" direction="ltr" dominant-baseline="alphabetic">&gt; Manage master</text><text x="0" y="47.08" font-family="Nunito, Segoe UI Emoji" font-size="20px" fill="#1e1e1e" text-anchor="start" style="white-space: pre;" direction="ltr" dominant-baseline="alphabetic">datasets and work</text><text x="0" y="74.08" font-family="Nunito, Segoe UI Emoji" font-size="20px" fill="#1e1e1e" text-anchor="start" style="white-space: pre;" direction="ltr" dominant-baseline="alphabetic">files</text><text x="0" y="101.08" font-family="Nunito, Segoe UI Emoji" font-size="20px" fill="#1e1e1e" text-anchor="start" style="white-space: pre;" direction="ltr" dominant-baseline="alphabetic">&gt; Set up appropriate</text><text x="0" y="128.07999999999998" font-family="Nunito, Segoe UI Emoji" font-size="20px" fill="#1e1e1e" text-anchor="start" style="white-space: pre;" direction="ltr" dominant-baseline="alphabetic">file structures</text><text x="0" y="155.07999999999998" font-family="Nunito, Segoe UI Emoji" font-size="20px" fill="#1e1e1e" text-anchor="start" style="white-space: pre;" direction="ltr" dominant-baseline="alphabetic">&gt; Back up data!</text></g><g transform="translate(310 210) rotate(0 100 94.5)"><text x="0" y="20.08" font-family="Nunito, Segoe UI Emoji" font-size="20px" fill="#1e1e1e" text-anchor="start" style="white-space: pre;" direction="ltr" dominant-baseline="alphabetic">Address disclosure</text><text x="0" y="47.08" font-family="Nunito, Segoe UI Emoji" font-size="20px" fill="#1e1e1e" text-anchor="start" style="white-space: pre;" direction="ltr" dominant-baseline="alphabetic">risk limitations</text><text x="0" y="74.08" font-family="Nunito, Segoe UI Emoji" font-size="20px" fill="#1e1e1e" text-anchor="start" style="white-space: pre;" direction="ltr" dominant-baseline="alphabetic">Determine file</text><text x="0" y="101.08" font-family="Nunito, Segoe UI Emoji" font-size="20px" fill="#1e1e1e" text-anchor="start" style="white-space: pre;" direction="ltr" dominant-baseline="alphabetic">formats to deposit</text><text x="0" y="128.07999999999998" font-family="Nunito, Segoe UI Emoji" font-size="20px" fill="#1e1e1e" text-anchor="start" style="white-space: pre;" direction="ltr" dominant-baseline="alphabetic">Contact archive for</text><text x="0" y="155.07999999999998" font-family="Nunito, Segoe UI Emoji" font-size="20px" fill="#1e1e1e" text-anchor="start" style="white-space: pre;" direction="ltr" dominant-baseline="alphabetic">advice</text><text x="0" y="182.07999999999998" font-family="Nunito, Segoe UI Emoji" font-size="20px" fill="#1e1e1e" text-anchor="start" style="white-space: pre;" direction="ltr" dominant-baseline="alphabetic"></text></g><g transform="translate(610 210) rotate(0 100 121.5)"><text x="0" y="20.08" font-family="Nunito, Segoe UI Emoji" font-size="20px" fill="#1e1e1e" text-anchor="start" style="white-space: pre;" direction="ltr" dominant-baseline="alphabetic">Complete relevant</text><text x="0" y="47.08" font-family="Nunito, Segoe UI Emoji" font-size="20px" fill="#1e1e1e" text-anchor="start" style="white-space: pre;" direction="ltr" dominant-baseline="alphabetic">forms</text><text x="0" y="74.08" font-family="Nunito, Segoe UI Emoji" font-size="20px" fill="#1e1e1e" text-anchor="start" style="white-space: pre;" direction="ltr" dominant-baseline="alphabetic">Comply with</text><text x="0" y="101.08" font-family="Nunito, Segoe UI Emoji" font-size="20px" fill="#1e1e1e" text-anchor="start" style="white-space: pre;" direction="ltr" dominant-baseline="alphabetic">dissemination</text><text x="0" y="128.07999999999998" font-family="Nunito, Segoe UI Emoji" font-size="20px" fill="#1e1e1e" text-anchor="start" style="white-space: pre;" direction="ltr" dominant-baseline="alphabetic">standards and</text><text x="0" y="155.07999999999998" font-family="Nunito, Segoe UI Emoji" font-size="20px" fill="#1e1e1e" text-anchor="start" style="white-space: pre;" direction="ltr" dominant-baseline="alphabetic">formats</text><text x="0" y="182.07999999999998" font-family="Nunito, Segoe UI Emoji" font-size="20px" fill="#1e1e1e" text-anchor="start" style="white-space: pre;" direction="ltr" dominant-baseline="alphabetic">Determine mode of</text><text x="0" y="209.07999999999998" font-family="Nunito, Segoe UI Emoji" font-size="20px" fill="#1e1e1e" text-anchor="start" style="white-space: pre;" direction="ltr" dominant-baseline="alphabetic">transmission</text><text x="0" y="236.07999999999998" font-family="Nunito, Segoe UI Emoji" font-size="20px" fill="#1e1e1e" text-anchor="start" style="white-space: pre;" direction="ltr" dominant-baseline="alphabetic"></text></g><g transform="translate(890 210) rotate(0 100 175.5)"><text x="0" y="20.08" font-family="Nunito, Segoe UI Emoji" font-size="20px" fill="#1e1e1e" text-anchor="start" style="white-space: pre;" direction="ltr" dominant-baseline="alphabetic">Collection evaluation</text><text x="0" y="47.08" font-family="Nunito, Segoe UI Emoji" font-size="20px" fill="#1e1e1e" text-anchor="start" style="white-space: pre;" direction="ltr" dominant-baseline="alphabetic">Additional</text><text x="0" y="74.08" font-family="Nunito, Segoe UI Emoji" font-size="20px" fill="#1e1e1e" text-anchor="start" style="white-space: pre;" direction="ltr" dominant-baseline="alphabetic">confidentiality review</text><text x="0" y="101.08" font-family="Nunito, Segoe UI Emoji" font-size="20px" fill="#1e1e1e" text-anchor="start" style="white-space: pre;" direction="ltr" dominant-baseline="alphabetic">Data processing</text><text x="0" y="128.07999999999998" font-family="Nunito, Segoe UI Emoji" font-size="20px" fill="#1e1e1e" text-anchor="start" style="white-space: pre;" direction="ltr" dominant-baseline="alphabetic">Metadata preparation</text><text x="0" y="155.07999999999998" font-family="Nunito, Segoe UI Emoji" font-size="20px" fill="#1e1e1e" text-anchor="start" style="white-space: pre;" direction="ltr" dominant-baseline="alphabetic">Possible preparation</text><text x="0" y="182.07999999999998" font-family="Nunito, Segoe UI Emoji" font-size="20px" fill="#1e1e1e" text-anchor="start" style="white-space: pre;" direction="ltr" dominant-baseline="alphabetic">for online analysis</text><text x="0" y="209.07999999999998" font-family="Nunito, Segoe UI Emoji" font-size="20px" fill="#1e1e1e" text-anchor="start" style="white-space: pre;" direction="ltr" dominant-baseline="alphabetic">and data</text><text x="0" y="236.07999999999998" font-family="Nunito, Segoe UI Emoji" font-size="20px" fill="#1e1e1e" text-anchor="start" style="white-space: pre;" direction="ltr" dominant-baseline="alphabetic">enhancement</text><text x="0" y="263.08" font-family="Nunito, Segoe UI Emoji" font-size="20px" fill="#1e1e1e" text-anchor="start" style="white-space: pre;" direction="ltr" dominant-baseline="alphabetic">Preservation of data</text><text x="0" y="290.08" font-family="Nunito, Segoe UI Emoji" font-size="20px" fill="#1e1e1e" text-anchor="start" style="white-space: pre;" direction="ltr" dominant-baseline="alphabetic">Support for data</text><text x="0" y="317.08" font-family="Nunito, Segoe UI Emoji" font-size="20px" fill="#1e1e1e" text-anchor="start" style="white-space: pre;" direction="ltr" dominant-baseline="alphabetic">users</text><text x="0" y="344.08" font-family="Nunito, Segoe UI Emoji" font-size="20px" fill="#1e1e1e" text-anchor="start" style="white-space: pre;" direction="ltr" dominant-baseline="alphabetic"></text></g></svg>
+:::
+
+
+::: {.notes}
+
+Step 1 – Proposal Planning and Writing
+
+Conduct review of existing datasets
+Determine whether project will produce a new dataset
+Describe special archiving challenges, especially involved consent and confidentiality
+Identify potential users
+Determine costs related to archiving
+
+Step 2 – Project Start-up and Data Management
+
+Create data management plan
+Make decisions about documentation form and content
+Conduct pre-tests and pilot test of materials and methods
+
+Step 3 – Data Collection and File Creation
+
+Follow best practices
+For data, address dataset integrity, variable names, labels, and groups; coding; missing data
+For documentation, explore use of DDI standard; include all relevant documentation elements; document constructed variables
+
+Step 4 – Data Analysis
+
+Manage master datasets and work files
+Set up appropriate file structures
+Back up data!
+
+Step 5 – Preparing Data for Sharing with Others
+
+Address disclosure risk limitations
+Determine file formats to deposit
+Contact archive for advice
+
+Step 6 – Depositing Data
+
+Complete relevant forms
+Comply with dissemination standards and formats
+Determine mode of transmission
+
+Step 7 – After Deposit – Archival Activities
+
+Collection evaluation
+Additional confidentiality review
+Data processing
+Metadata preparation
+Possible preparation for online analysis and data enhancement
+Preservation of data
+Support for data users
+:::
+
+[[Source](https://web.archive.org/web/20250619000440/https://blogs.princeton.edu/onpopdata/2012/03/12/data-life-cycle/) | [URL](https://web.archive.org/web/20240707001100/https://i0.wp.com/blogs.princeton.edu/onpopdata/wp-content/uploads/sites/12/2012/03/dsdr.png)]{.absolute top=70%}
+
+
+## 
+
+... qu'on peut également modéliser ainsi...
+
+::: {.centered}
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 580" width="980" height="580"><!-- svg-source:excalidraw --><metadata></metadata><defs><style class="style-fonts">
+      @font-face { font-family: Nunito; src: url(data:font/woff2;base64,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); }</style></defs><rect x="0" y="0" width="980" height="580" fill="#ffffff"></rect><g stroke-linecap="round"><g transform="translate(10 50) rotate(0 190 40)"><path d="M0 0 C126.96 -0.25, 251.77 -0.86, 380 0 M0 0 C149.21 -0.87, 298.87 -1.13, 380 0 M380 0 C378.43 21.56, 377.86 40.65, 380 80 M380 0 C379.42 27.83, 380.77 56.54, 380 80" stroke="#f08c00" stroke-width="2" fill="none"></path></g><g transform="translate(10 50) rotate(0 190 40)"><path d="M371.69 56.42 C376.3 64.66, 377.35 71.45, 380 80 M371.69 56.42 C374.53 65.87, 378.28 74.7, 380 80" stroke="#f08c00" stroke-width="2" fill="none"></path></g><g transform="translate(10 50) rotate(0 190 40)"><path d="M388.79 56.6 C387.74 64.82, 383.12 71.55, 380 80 M388.79 56.6 C384.91 66.05, 381.94 74.81, 380 80" stroke="#f08c00" stroke-width="2" fill="none"></path></g></g><mask></mask><g stroke-linecap="round" transform="translate(70 10) rotate(0 130 40)"><path d="M20 0 C103.84 0.93, 189.43 -3.87, 240 0 C255.61 -3.48, 257.89 4.15, 260 20 C260.62 29.65, 262.56 44.1, 260 60 C259.19 73.76, 251.89 78.08, 240 80 C178.84 81.2, 119.08 79.13, 20 80 C10.17 77.43, -0.77 70.55, 0 60 C2.55 53.11, 2.64 42.63, 0 20 C2.46 8.24, 4.39 0.27, 20 0" stroke="none" stroke-width="0" fill="#4dabf7"></path><path d="M20 0 C73.86 1.25, 126.8 0.56, 240 0 M20 0 C72.29 0, 126.26 1.03, 240 0 M240 0 C253.18 -0.13, 258.4 8.29, 260 20 M240 0 C254.46 -1.93, 260.63 5.4, 260 20 M260 20 C259.55 34.66, 258.42 53.14, 260 60 M260 20 C259.64 35.95, 259.52 50.7, 260 60 M260 60 C261.8 72.62, 255 79.28, 240 80 M260 60 C261.84 71.56, 255.46 80.86, 240 80 M240 80 C153.55 78.68, 63.69 78.11, 20 80 M240 80 C176.26 81.69, 110.49 82.12, 20 80 M20 80 C5.6 78.46, 1.81 71.41, 0 60 M20 80 C8.09 81.68, -0.91 74.5, 0 60 M0 60 C-0.66 48.39, 0.9 32.99, 0 20 M0 60 C-0.05 49.94, -1.06 40.52, 0 20 M0 20 C1.71 4.93, 6.11 1.02, 20 0 M0 20 C-2.16 7.75, 6.69 0.5, 20 0" stroke="#1e1e1e" stroke-width="1" fill="none"></path></g><g transform="translate(139.43006896972656 36.5) rotate(0 60.56993103027344 13.5)"><text x="60.56993103027344" y="20.08" font-family="Nunito, Segoe UI Emoji" font-size="20px" fill="#1e1e1e" text-anchor="middle" style="white-space: pre;" direction="ltr" dominant-baseline="alphabetic">Data creation</text></g><g stroke-linecap="round" transform="translate(230 130) rotate(0 130 40)"><path d="M20 0 C83.59 2.87, 142.09 0.44, 240 0 C250.26 3.32, 260.07 6.25, 260 20 C258.36 33.99, 256.52 49.33, 260 60 C256.83 71.65, 252.33 80, 240 80 C157.02 84.62, 71.18 81.67, 20 80 C4.6 78.09, 3.25 71.49, 0 60 C4.11 53.04, 0.35 43.2, 0 20 C-2.18 3.45, 7.97 2.61, 20 0" stroke="none" stroke-width="0" fill="#4dabf7"></path><path d="M20 0 C73.6 0.81, 129.06 1.55, 240 0 M20 0 C102.18 1.21, 186.2 1.13, 240 0 M240 0 C251.92 -1.85, 258.31 7.56, 260 20 M240 0 C252 1.85, 259.03 6.15, 260 20 M260 20 C259.28 31.16, 261.78 46.23, 260 60 M260 20 C260.59 32.72, 260.1 45.68, 260 60 M260 60 C259.82 72.11, 254.44 78.5, 240 80 M260 60 C258.62 75.27, 253.17 81.51, 240 80 M240 80 C154.19 80.28, 69.29 79.94, 20 80 M240 80 C185.31 81.59, 129.78 82.01, 20 80 M20 80 C5.05 81.71, -1.59 74.59, 0 60 M20 80 C8.7 81.91, 1.02 73.55, 0 60 M0 60 C-1.4 48.21, -1.41 38.01, 0 20 M0 60 C0.4 44.08, -0.17 28.85, 0 20 M0 20 C1.74 5.11, 7.47 1.31, 20 0 M0 20 C2.23 8.79, 7.33 0.1, 20 0" stroke="#1e1e1e" stroke-width="1" fill="none"></path></g><g transform="translate(300.2300720214844 156.5) rotate(0 59.769927978515625 13.5)"><text x="59.769927978515625" y="20.08" font-family="Nunito, Segoe UI Emoji" font-size="20px" fill="#1e1e1e" text-anchor="middle" style="white-space: pre;" direction="ltr" dominant-baseline="alphabetic">Data Storage</text></g><g stroke-linecap="round" transform="translate(370 250) rotate(0 130 40)"><path d="M20 0 C87.33 -2.2, 148.71 -0.75, 240 0 C253.46 -2.5, 256.68 5, 260 20 C259.78 33.67, 263.85 40.52, 260 60 C257.46 69.76, 253.05 82.19, 240 80 C151.41 81.96, 68.45 82.15, 20 80 C7.83 82.77, -0.49 70.26, 0 60 C-0.45 53.36, -1.47 40.19, 0 20 C1.9 10.03, 9.77 0.15, 20 0" stroke="none" stroke-width="0" fill="#4dabf7"></path><path d="M20 0 C107.02 0.86, 196.77 -0.94, 240 0 M20 0 C95.6 -1.6, 169.64 -2.02, 240 0 M240 0 C255.21 -1.18, 261.33 7.2, 260 20 M240 0 C252.64 -1.17, 258.04 8.79, 260 20 M260 20 C259.8 30.23, 259.07 44.2, 260 60 M260 20 C259.7 27.92, 260.17 37.18, 260 60 M260 60 C258.25 75.28, 253.54 80.82, 240 80 M260 60 C258.37 72.11, 252.01 78.78, 240 80 M240 80 C152.51 76.74, 69.92 78.66, 20 80 M240 80 C175.25 79.16, 112.67 78.83, 20 80 M20 80 C5.86 80.79, 0.62 72.31, 0 60 M20 80 C7.44 79.11, -1.6 74.12, 0 60 M0 60 C1.44 48.3, 0.52 34.81, 0 20 M0 60 C0.18 48.09, 0.32 36.47, 0 20 M0 20 C-1.07 7.18, 5.57 -1.74, 20 0 M0 20 C-0.39 8.65, 7.49 0.05, 20 0" stroke="#1e1e1e" stroke-width="1" fill="none"></path></g><g transform="translate(448.6300582885742 276.5) rotate(0 51.36994171142578 13.5)"><text x="51.36994171142578" y="20.08" font-family="Nunito, Segoe UI Emoji" font-size="20px" fill="#1e1e1e" text-anchor="middle" style="white-space: pre;" direction="ltr" dominant-baseline="alphabetic">Data usage</text></g><g stroke-linecap="round" transform="translate(530 370) rotate(0 130 40)"><path d="M20 0 C101.86 6.41, 186.1 2.41, 240 0 C253.97 -3.21, 262.55 3.96, 260 20 C260.67 30.27, 257.07 39.5, 260 60 C259.12 75.93, 250.8 79.42, 240 80 C191.32 77.45, 148.02 74.43, 20 80 C10.02 82.31, -1.56 69.74, 0 60 C-0.36 55.32, -1.89 42.95, 0 20 C1.75 5.99, 5.16 2.58, 20 0" stroke="none" stroke-width="0" fill="#4dabf7"></path><path d="M20 0 C95.77 -0.95, 171.33 -1.18, 240 0 M20 0 C68.55 -0.26, 117.65 -0.77, 240 0 M240 0 C252.22 1.38, 260.19 8.46, 260 20 M240 0 C254.82 0.02, 259.14 6.84, 260 20 M260 20 C259.35 31.99, 259.95 44.11, 260 60 M260 20 C259.37 32.75, 260.04 45.57, 260 60 M260 60 C258.8 73.51, 252.11 81.34, 240 80 M260 60 C262.26 74.43, 254.69 81.85, 240 80 M240 80 C195.34 79.77, 149.54 80.6, 20 80 M240 80 C190.39 80.06, 141.63 80.8, 20 80 M20 80 C6.82 81.42, 0.96 74.86, 0 60 M20 80 C4.72 79.48, -0.82 71.11, 0 60 M0 60 C1.07 47.74, 0.59 38.96, 0 20 M0 60 C-0.61 50.92, -0.27 43.39, 0 20 M0 20 C0.9 6.93, 6 -0.89, 20 0 M0 20 C1.23 5.15, 8.92 -1.12, 20 0" stroke="#1e1e1e" stroke-width="1" fill="none"></path></g><g transform="translate(600.6100769042969 396.5) rotate(0 59.389923095703125 13.5)"><text x="59.389923095703125" y="20.08" font-family="Nunito, Segoe UI Emoji" font-size="20px" fill="#1e1e1e" text-anchor="middle" style="white-space: pre;" direction="ltr" dominant-baseline="alphabetic">Data archival</text></g><g stroke-linecap="round" transform="translate(710 490) rotate(0 130 40)"><path d="M20 0 C65.27 -0.38, 115.89 4.03, 240 0 C254.24 0.93, 257.92 6.6, 260 20 C262.23 38.44, 264.02 48.75, 260 60 C258.93 72.62, 253 76.88, 240 80 C176.06 77.7, 118.54 80.72, 20 80 C5.86 81.44, 0.3 76.21, 0 60 C-2.28 48.16, -1.9 40.77, 0 20 C-0.28 7.49, 10.04 0.81, 20 0" stroke="none" stroke-width="0" fill="#4dabf7"></path><path d="M20 0 C108.18 -1, 196.98 -0.75, 240 0 M20 0 C65.99 1.59, 110.88 1.82, 240 0 M240 0 C252.85 1.44, 258.59 6.35, 260 20 M240 0 C251.24 -1.37, 258.26 4.7, 260 20 M260 20 C261.87 33.33, 259.14 42.11, 260 60 M260 20 C259.58 29.18, 259.16 36.23, 260 60 M260 60 C260.97 72.96, 252.5 81.43, 240 80 M260 60 C261.15 73.97, 252.71 82.22, 240 80 M240 80 C181.2 79.83, 121.83 79.92, 20 80 M240 80 C178.07 77.9, 116.5 78.12, 20 80 M20 80 C4.98 78.23, 1.68 73.73, 0 60 M20 80 C7.54 80.14, -0.27 74.88, 0 60 M0 60 C-1.19 50.78, 2.06 42.88, 0 20 M0 60 C-0.02 48.02, 0.61 36.47, 0 20 M0 20 C1.45 6.62, 6.38 -0.13, 20 0 M0 20 C-2.13 8.89, 5.24 -1.67, 20 0" stroke="#1e1e1e" stroke-width="1" fill="none"></path></g><g transform="translate(764.8000869750977 516.5) rotate(0 75.19991302490234 13.5)"><text x="75.19991302490234" y="20.08" font-family="Nunito, Segoe UI Emoji" font-size="20px" fill="#1e1e1e" text-anchor="middle" style="white-space: pre;" direction="ltr" dominant-baseline="alphabetic">Data destruction</text></g><g stroke-linecap="round"><g transform="translate(490 170) rotate(0 30 40)"><path d="M0 0 C20.97 -0.86, 43.27 0.6, 60 0 M0 0 C15.83 0.52, 30.32 0.61, 60 0 M60 0 C59.9 27.93, 60.73 52.79, 60 80 M60 0 C59.55 29.8, 60.34 60.48, 60 80" stroke="#f08c00" stroke-width="2" fill="none"></path></g><g transform="translate(490 170) rotate(0 30 40)"><path d="M51.52 56.48 C54.28 63.66, 58.32 73.46, 60 80 M51.52 56.48 C54.13 62.76, 55.52 68.84, 60 80" stroke="#f08c00" stroke-width="2" fill="none"></path></g><g transform="translate(490 170) rotate(0 30 40)"><path d="M68.63 56.53 C65.32 63.6, 63.29 73.38, 60 80 M68.63 56.53 C66.88 62.72, 63.91 68.79, 60 80" stroke="#f08c00" stroke-width="2" fill="none"></path></g></g><mask></mask><g stroke-linecap="round"><g transform="translate(630 290.0997295132688) rotate(0 30 39.950135243365594)"><path d="M0 0 C14.68 1.22, 25.38 -0.52, 59.94 0 M0 0 C20.91 -0.13, 41.72 0.85, 59.94 0 M59.94 0 C60.3 20.74, 59.05 44.53, 60 79.9 M59.94 0 C58.57 16.91, 58.45 31.61, 60 79.9" stroke="#f08c00" stroke-width="2" fill="none"></path></g><g transform="translate(630 290.0997295132688) rotate(0 30 39.950135243365594)"><path d="M50.82 56.65 C54.48 62.58, 54.12 65.91, 60 79.9 M50.82 56.65 C54.23 64.49, 57.71 73.41, 60 79.9" stroke="#f08c00" stroke-width="2" fill="none"></path></g><g transform="translate(630 290.0997295132688) rotate(0 30 39.950135243365594)"><path d="M67.91 56.19 C67.85 62.11, 63.77 65.54, 60 79.9 M67.91 56.19 C65.48 64.2, 63.13 73.28, 60 79.9" stroke="#f08c00" stroke-width="2" fill="none"></path></g></g><mask></mask><g stroke-linecap="round"><g transform="translate(790 410) rotate(0 30 39.950135243365594)"><path d="M0 0 C18.05 1.4, 38.22 0.04, 59.94 0 M0 0 C16.5 0.45, 32.9 1.45, 59.94 0 M59.94 0 C61.69 16.52, 58.6 36.3, 60 79.9 M59.94 0 C59.32 20.83, 60.1 42.36, 60 79.9" stroke="#f08c00" stroke-width="2" fill="none"></path></g><g transform="translate(790 410) rotate(0 30 39.950135243365594)"><path d="M51.38 56.43 C53.12 65.28, 57.07 71.34, 60 79.9 M51.38 56.43 C53.51 63.03, 55.43 70.65, 60 79.9" stroke="#f08c00" stroke-width="2" fill="none"></path></g><g transform="translate(790 410) rotate(0 30 39.950135243365594)"><path d="M68.48 56.38 C64.81 65.26, 63.36 71.33, 60 79.9 M68.48 56.38 C65.79 62.84, 62.89 70.47, 60 79.9" stroke="#f08c00" stroke-width="2" fill="none"></path></g></g><mask></mask></svg>
+
+:::
+
+[[Source](https://www.intellectsoft.net/blog/data-management-life-cycle-and-why-you-should-follow-it/)]{.absolute top=70%}
+
+##  {.scrollable .nostretch}
+
+... voire selon des représentations plus ésotériques...
+
+. . .
+
+![](img/data_lifecycle_with_reuseV2-768x685.png)
+
+. . .
+
+[Scrollez ↓]{.right}
+
+![](img/data-lifecycle-management.jpg)
+
+
+![[Source](https://www.spiceworks.com/it-security/data-security/articles/security-data-throughout-data-lifecycle/#lg=1&slide=0)](img/Data-Lifecycle.png)
+
+## Chacune de ces représentations capture une partie de la vérité
+
+- There is an evolution: data at day one of the project is different from the “same” data at the end of the project
+- The task is long and difficult. This shouldn’t be a surprise: data is at the core of any scientific project
+
+
+## En résumé
+
+. . .
+
+→ Vos données vont évoluer dans le temps de la recherche.
+
+. . .
+
+→ Le regard que vous portez sur elles va changer ; leur volume, leur format, leur intérêt potentiel également.
+
+. . .
+
+→ Sans oublier la question de l'**ouverture** : pourrez-vous partager vos données ? Auprès de qui, et comment ?
+
+. . .
+
+→ Chaque phase du *cycle de vie* de la donnée demande donc de regarder celles-ci d'un oeil neuf,
+et de se poser de nouvelles questions.
+
+. . .
+
+→ Pour vous y aider, il existe un ensemble de principes qui peuvent servir de ligne directrice : les principes dits **FAIR**.
+
+
+# 04 | Les principes FAIR
+
+## Définitions
+
+FAIR est un acronyme formé à partir des initiales de quatre concepts :
+
+- **F** comme Findability (*facile à trouver*)
+- **A** comme Accessibility (*accessible*)
+- **I** comme Interoperability (*interopérable*)
+- **R** comme Reusability (*réutilisable*)
+
+. . .
+
+Chacun de ces concepts peut se décliner en un ensemble de conseils et de bonnes pratiques, détaillés dans les *slides* qui suivent.
+
+. . .
+
+→ Selon la documentation consultée (voir plus loin [celle de DORANUM](#pour-aller-plus-loin-via-doranum)), ces conseils peuvent être rattachés à l'un ou l'autre des principes FAIR, signe qu'il s'agit plus d'une conception générale de la bonne gestion des données que d'un protocole à suivre rigoureusement.
+
+## Un peu de contexte
+
+. . .
+
+Elaborés à partir de 2014 et 2016, les principes FAIR ont été formalisés dans une publication de 2016, @wilkinsonFAIRGuidingPrinciples2016
+
+. . .
+
+Ils s'agit d'une tentative de définir, de manière consensuelle, *ce qu'est une bonne gestion des données* (de recherche, en particulier).
+
+. . .
+
+L'objectif des principes FAIR recoupe fortement les enjeux de la science ouverte. Il s'agit de faciliter :
+
+- la *découverte* des données, 
+- leur *intégration* avec d'autres données 
+- et leur *réutilisation* par la communauté scientifique ou la société civile.
+
+## Des principes rapidement adoptés
+
+![Evolution du nombre d'articles référencés dans Scopus mentionnant les principes FAIR dans leur résumé.](img/fair_scopus.png)
+
+
+## Dans le détail | F comme *facile à trouver*
+
+Faciliter la *découverte* de ses données (par des humains *et* par des moteurs de recherche ou des robots au sens large) suppose de respecter quelques conditions :
+
+. . .
+
+→ Déposer son jeu de données dans un **entrepôt** dédié.
+
+. . .
+
+→ Assigner un **identifiant** unique à son jeu de données
+
+. . .
+
+→ Décrire son jeu de données au moyen d'un schéma standardisé de **métadonnées** 
+
+. . .
+
+→ Attribuer à son jeu de données des **descripteurs** relatifs à son contenu (mots-clefs, vocabulaire contrôlé).
+
+## Entrepôt
+
+Que votre jeu de données accompagne ou non une publication, la condition première pour qu'il ressorte dans les résultats de recherche est bien sûr qu'il soit disponible quelque part sur le Web. Plutôt que des solutions type *cloud* peu adaptées, nous suggérons de déposer vos données (partageables) dans un **entrepôt** dédié à cet usage.
+
+. . .
+
+→ Le terme d'**entrepôt de données** (*data repository*) s'est imposé pour désigner les plateformes spécialisées dans le dépôt, le stockage et le partage des données de recherche. Il en existe de tout type : [institutionnels](https://data.sciencespo.fr/) ou [privés](https://figshare.com/), [disciplinaires](https://www.seanoe.org/) ou [généralistes](https://entrepot.recherche.data.gouv.fr/)...
+
+. . .
+
+Certains éditeurs scientifiques vous inciteront peut-être à déposer les jeux de données accompagnant vos publications dans leur propre entrepôt. Pour éviter toute mainmise sur vos données, nous recommandons plutôt un entrepôt public et ouvert (→ voir la [slide dédiée ](#focus-le-choix-dun-entrepôt)).
+
+## Identifiant unique
+
+::: {.mval}
+
+En contexte numérique/web, un identifiant unique est la plupart du temps un DOI (Digital Object Identifier) : une suite de caractères alphanumériques attribuée, de manière pérenne, à un article ou à un jeu de données. Un DOI peut prendre la forme d'un lien cliquable redirigeant toujours vers le jeu de données. 
+
+Un DOI facilite la citation de votre jeu de données, et permet d'y accéder en un clic de manière plus fiable qu'une simple URL.
+
+L'attribution d'un DOI est généralement prise en charge par l'[entrepôt](#entrepôt) dans lequel vous déposez votre jeu de données.
+
+:::
+
+## Schéma de métadonnées
+
+. . .
+
+Les métadonnées sont des données descriptives : des *données sur les données*. 
+
+. . .
+
+Il existe plusieurs manières de décrire votre jeu de données, d'indiquer qui l'a produit, quand, dans quel contexte, ce qu'il contient, comment le lire, à quelles conditions le réutiliser... Toutes ces informations constituent les métadonnées de votre jeu de données. 
+
+. . .
+
+Pour faciliter la lisibilité de vos métadonnées, en particulier par les moteurs de recherche ou les bases de données bibliographiques, il est essentiel de compléter celles-ci en suivant un schéma **standardisé** (celui que les robots de collecte et d'indexation s'attendent à trouver).
+
+. . .
+
+→ le **Dublin Core** (lien) est le plus courant de ces schémas, mais il en existe d'autres, plus précis ou plus complets, qui prennent mieux en compte les spécificités disciplinaires.
+
+## Exemple de métadonnées en Dublin Core
+
+```{.xml}
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xmlns:dc="http://purl.org/dc/elements/1.1/" 
+xmlns:dcterms="http://purl.org/dc/terms/" 
+xmlns="http://dublincore.org/documents/dcmi-terms/">
+<dcterms:title>Effect of commonly used protective molecules to preserve Carnobacterium maltaromaticum CNCM I-3298 during freeze-drying and storage</dcterms:title>
+<dcterms:identifier>https://doi.org/10.57745/WABJL6</dcterms:identifier>
+<dcterms:creator>Fonseca, Fernanda</dcterms:creator>
+<dcterms:creator>Lieben; Pascale</dcterms:creator>
+<dcterms:creator>Wood, Xavier</dcterms:creator>
+<dcterms:creator>Cenard, Stéphanie</dcterms:creator>
+<dcterms:creator>Passot, Stéphanie</dcterms:creator>
+<dcterms:publisher>Recherche Data Gouv</dcterms:publisher>
+<dcterms:issued>2026-05-22</dcterms:issued>
+<dcterms:modified>2026-05-22T13:35:47Z</dcterms:modified>
+<dcterms:description>This dataset contains experimental data on the protective ability of commonly used molecules to
+ protect Carnobacterium maltaromaticum CNCM I-3298 during freeze-drying at pilot scale and storage of freeze-dried 
+ samples up to 4 weeks at 25 °C. </dcterms:description>
+<dcterms:subject>Agricultural Sciences</dcterms:subject>
+<dcterms:subject>Medicine, Health and Life Sciences</dcterms:subject>
+<dcterms:subject>lactic acid bacteria</dcterms:subject>
+<dcterms:subject>glass transition temperature</dcterms:subject>
+<dcterms:subject>FTIR spectroscopy</dcterms:subject>
+<dcterms:subject>formulation</dcterms:subject>
+<dcterms:subject>freeze drying</dcterms:subject>
+<dcterms:language>English</dcterms:language>
+<dcterms:isReferencedBy>à compléter une fois l'article accepté</dcterms:isReferencedBy>
+<dcterms:date>2026-05-22</dcterms:date>
+<dcterms:contributor>Fonseca, Fernanda</dcterms:contributor>
+<dcterms:dateSubmitted>2026-04-28</dcterms:dateSubmitted>
+<dcterms:type>Dataset</dcterms:type>
+<dcterms:license>etalab 2.0</dcterms:license></metadata>
+```
+
+[Source](https://doi.org/10.57745/WABJL6)
+
+## Descripteurs
+
+Un descripteur est un mot-clef (semblable à un *hashtag*) qui décrit le contenu de votre jeu de données, ou fournit des informations à son sujet (par exemple, le domaine de recherche dans lequel il s'inscrit).
+. . .
+
+Un jeu de données indexé avec les bons descripteurs a plus de chances de ressortir lors d'une recherche dans une base de données.
+
+. . .
+
+Si le choix de ces termes est généralement libre, il est recommandé de suivre les conventions en vigueur dans votre domaine disciplinaire ; vous pouvez vous appuyer, lorsqu'ils existent dans votre champ, sur des dictionnaires de mots-clés (*vocabulaires contrôlés* voire *thesaurus*) comme le [GEMET](https://www.eionet.europa.eu/gemet/fr/themes/) ou l'[ELSST](https://elsst.cessda.eu/) : ceux-ci sont pensés pour minimiser l'ambiguïté dans les descriptions.
+
+. . .
+
+→ Quel que soit le schéma de métadonnées que vous choisirez, il comportera probablement un champ dédié pour la saisie de mots-clés (par exemple, *subject* en Dublin Core).
+
+
+## Dans le détail | A comme *Accessible*
+
+Vos données sont désormais faciles à trouver : déposées dans un entrepôt, dotées d'un DOI, précisément décrites par des métadonnées et des mots-clefs standardisés, elles devraient ressortir dans les résultats de recherche.
+
+. . .
+
+Il vous reste à vous assurer que vos données sont **accessibles** : qu'il sera possible de les consulter / télécharger, selon les conditions que vous aurez fixées au préalable. En *slide* suivante, quelques bonnes pratiques que nous vous conseillons.
+
+##
+
+→ S'assurer que l'entrepôt choisi permet de télécharger les données selon un protocole standard et ouvert (HTTP ou FTP dans la plupart des cas, via une API REST si possible.)
+
+. . .
+
+→ Définir des conditions d'accès, si vous considérez que vos données ne peuvent ni ne doivent circuler largement. Si vous choisissez de restreindre l'accès à vos données, assurez-vous que les métadonnées, *a minima*, restent accessibles à tout un chacun.
+
+. . .
+
+→ Créer un fichier de type README décrivant la structure et le contenu de votre jeu de données, ainsi que les obstacles susceptibles d'en restreindre l'accès (conditions légales, logiciels spécifiques nécessaires...).
+
+
+## Dans le détail | I comme *Interopérable*
+
+::: {.mval}
+
+En informatique, l'interopérabilité désigne, pour aller vite, "la capacité à communiquer de deux logiciels différents, issus d’équipes de développement différentes" (@bortzmeyerCestQuoiLinteroperabilite2019) ; elle repose en particulier sur l'emploi de protocoles communs, ouverts, et documentés, comme HTTP (pour le Web) ou SMTP (pour le mail).
+
+:::
+
+. . .
+
+→ Le **I** des principes FAIR hérite de cette conception et l'applique aux données de la recherche.
+
+## 
+
+Pour que vos données puissent être à la fois bien comprises et réutilisées (y compris par d'autres que vous !), il faut s'assurer de leur intéropérabilité : cela permettra de les inclure dans de nouveaux flux de travail, de les agréger facilement à d'autres, et de créer ainsi des connexions entre des données de diverses sources.
+
+. . .
+
+→ Préférez pour ce faire les formats de fichier ouverts (.csv, .txt, .md...) aux formats propriétaires (.xslx, .docx, .pdf) (→ voir [la slide dédiée](#focus-les-formats-ouverts)). D'une manière générale, préférer autant que possible le format texte (brut) aux formats binaires (voir → @perretFormatTextea).
+
+. . .
+
+→ Assurez-vous que vos fichiers mais également, par exemple, les intitulés de vos variables dans un tableur, respectent les conventions de nommage habituelles : dates au format YYYY-MM-DD, pas de caractères spéciaux comme `?!@*%{[<>)`, préférer les tirets (`-` ou `_`) aux points, espaces ou barres obliques.
+
+##
+
+→ Documentez le plus possible votre travail, par exemple dans le fichier README : d'où proviennent ces données ? Quand et comment les avez-vous produites/collectées/transformées ? De quels biais ou quelles limitations ceux qui les consultent doivent-ils avoir conscience ?
+
+. . .
+
+→ Enfin, si vous avez publié un article qui s'appuie sur votre jeu de données, pensez à lier votre jeu de données à cet article en ajoutant le DOI de ce dernier dans les métadonnées. Cela facilitera la navigation de l'un à l'autre, et liera les deux objets dans les bases de données bibliographiques.
+
+## Dans le détail | R comme *Réutilisable*
+
+Si vos données sont *interopérables*, elles seront réutilisables d'un point de vue technique. Il vous reste à définir les conditions de cette réutilisation par d'autres personnes que vous-mêmes.
+
+. . .
+
+→ La première chose à faire est de vous assurer que vous disposez vous-mêmes des droits de partager vos données. Si l'ouverture des données de recherche est la règle, il existe en effet des exceptions qui peuvent en restreindre le partage : les données personnelles (identifiant des personnes) sont encadrées en Europe par le RGPD, certaines données sont couvertes par le secret médical, le secret défense, le secret des affaires...
+
+##
+
+→ Même si vos données sont partageables sans restriction, il est préférable de leur attribuer une **licence d'utilisation** qui en encadre la réutilisation. Cette licence figure généralement dans les métadonnées.
+
+Parallèlement aux [licences Creative Commons](https://creativecommons.org/chooser/), d'ordinaire attribuées aux publications, la Licence Ouverte [Etalab](https://ia.numerique.gouv.fr/licence-ouverte-open-licence/) a été pensée pour s'appliquer aux données. Elle autorise tous les usages (y compris commerciaux) d'un jeu de données, sous réserve d'en mentionner la paternité.
+
+## Pour aller plus loin (via [DoRANum](https://doranum.fr/enjeux-benefices/principes-fair_10_13143_z7s6-ed26/))
+
+Le document sur la *slide* suivante est interactif : il s'agit d'une présentation des principes FAIR (légèrement différente de ce qui précède) reprise de la plateforme de formation à distance DoRANum. 
+
+##
+
+<div style="width: 100%;"><div style="position: relative; padding-bottom: 56.25%; padding-top: 0; height: 0;"><iframe title="Les principes FAIR" frameborder="0" width="1200px" height="675px" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;" src="https://view.genially.com/5d64fbbd8352350fa3d22603" type="text/html" allowscriptaccess="always" allowfullscreen="true" scrolling="yes" allownetworking="all"></iframe> </div> </div>
+
+## Focus : les formats ouverts
+
+(reprise légèrement retouchée de la slide du ppt de Karine)
+
+## Focus : les modèles de données
+
+(idem)
+
+::: {.notes}
+
+Le cycle de vie des données de recherche (Research data lifecycle) décrit le processus d'utilisation des données de leur création à la publication et à leur réutilisation ultérieure.
+En effet, les données ont souvent une durée de vie plus longue que le projet de recherche qui les a créées. Vous pouvez être amenés à continuer de travailler sur les données après l'arrêt d’un financement par exemple.
+Des données bien organisées, bien documentées, préservées et partagées peuvent contribuer à faire avancer la recherche.
+Il existe plusieurs représentations du cycle de vie des données de la recherche. Celui que l’on va vous présenter est un schéma possible de gestion
+
+Manière dont les données sont structurées, organisées et encodées sur le support physique
+➔ En général, défini par l’extension dans le nom du fichier 
+Importance des formats de fichiers
+Être capable d’ouvrir les fichiers sur un maximum de types de système avec un maximum de logiciels
+Qui n’a pas été confronté au problème de l’ouverture d’un fichier envoyé par un collègue ?
+Être capable de le faire maintenant et dans 5 ans
+Qui n’a pas été confronté à une version de format de fichier qui n’est plus supportée par le logiciel ?
+Pouvoir partager ses données au sein de son équipe de recherche ou de façon plus large
+Pouvoir traiter et analyser les données grâce à différents logiciels, être capable de croiser des données de différentes sources, et donc différents fichiers, éventuellement avec des formats distincts
+Assurer l’interopérabilité des données
+
+Bien choisir ses formats : 
+ouvert : spécifications publiques, pas de restriction d’accès ou de mise en œuvre (ex : csv, png, xml, pdf…)
+→ à privilégier
+fermé : spécifications secrètes, dépend d’un logiciel (ex : doc, wmv…)
+norme, standard
+normalisé : par une institution publique (ex : ISO)
+standard : dépend de la popularité, parfois une étape avant la normalisation
+
+Pour vérifier que mon fichier est valide pour l’archivage à long terme par le CINES : https://facile.cines.fr/ 
+
+:::
+
+::: {.notes}
+
+données tabulaires : pour importer et exporter des données ayant une structuration simple
+approche intuitive
+adaptabilité
+indépendance technique
+sujet à la redondance et entraîne des incohérences
+recherches lentes et inefficaces
+modèle relationnel : gestion de données complexes dans un contexte local
+gestion de données complexes
+optimisation des requêtes
+logiciels matures
+format binaire
+dépendance à un schéma
+langages de balisage hiérarchiques (XML) : import et export de données complexes et gestion de données avec une structure hiérarchique
+interopérabilité technique
+lisibilité à la fois par l’humain et par une machine
+implémentation complexe pour des données complexes
+verbosité
+modèle RDF : partage de données sur le Web
+neutralité du schéma
+découverte de l’information du monde ouvert
+perte de normalisation 
+marché de logiciels immature
+
+:::
+
+# 05 | Le plan de gestion des données
+
+## (en cours)
+
+# Contacts
+
+## Bonne nouvelle
+
+→ Vous n'êtes pas seul.e.s 
+
+Data being at the core of your project, your main interlocutors on the subject of your research data are:
+
+- Your thesis advisor
+- Your colleagues at the lab
+- People working in the same field as yourself, whom you may know personally or through an online network
+- et les bibliothécaires de votre université et personnels d'appui à la recherche de votre labo / organisme
+
+## Liste des contacts à l'UVSQ
+
+## Ressources complémentaires et bibliographie
+
+## Annexe 1 : R, un langage de traitement, d’analyse et de visualisation de données
+
+## Annexe 2 : OpenRefine, un outil de nettoyage de données
+
+#
