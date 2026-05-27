@@ -1719,50 +1719,6 @@
       "elbowed": false
     },
     {
-      "id": "qa3W86mM4pjZFc80quVt_",
-      "type": "arrow",
-      "x": 620,
-      "y": 861.0295535482104,
-      "width": 140,
-      "height": 0,
-      "angle": 0,
-      "strokeColor": "#1e1e1e",
-      "backgroundColor": "transparent",
-      "fillStyle": "solid",
-      "strokeWidth": 2,
-      "strokeStyle": "solid",
-      "roughness": 1,
-      "opacity": 100,
-      "groupIds": [],
-      "frameId": null,
-      "index": "ar",
-      "roundness": null,
-      "seed": 108406482,
-      "version": 29,
-      "versionNonce": 1315798162,
-      "isDeleted": false,
-      "boundElements": [],
-      "updated": 1779808362739,
-      "link": null,
-      "locked": false,
-      "points": [
-        [
-          0,
-          0
-        ],
-        [
-          140,
-          0
-        ]
-      ],
-      "lastCommittedPoint": null,
-      "startBinding": null,
-      "endBinding": null,
-      "startArrowhead": null,
-      "endArrowhead": "arrow",
-      "elbowed": false
-    },
-    {
       "id": "PP-WU3t35AHQ4CdbTcc66",
       "type": "arrow",
       "x": 820,
