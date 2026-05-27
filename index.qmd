@@ -297,7 +297,6 @@ Cette typologie ne fait pas autorité : elle vise surtout à mieux faire compren
   - Relevés de température/pollution
   - Compte-rendus d'entretiens qualitatifs
   - Images microscopiques
-  - Télédétection
 
 . . .
 
@@ -342,7 +341,6 @@ Ingénierie : Simulation de la résistance d'un matériau sous différentes cond
 - Issues de protocoles scientifiques reproductibles, souvent en laboratoire
   - Résultats d’essais cliniques ou agronomiques
   - séquences ADN
-  - chromatogrammes
   - mesures de réactions chimiques
   - tests psychométriques en environnement contrôlé
 
@@ -839,13 +837,13 @@ C'est aussi un document **administratif** : le PGD fait par exemple partie des l
 
 ##
 
-Un PGD est évidemment un document **partageable** : il peut donc être utile d'en consulter quelques-uns lors du démarrage d'un projet -- voire pendant la rédaction du vôtre -- pour comprendre comment d'autres chercheurs au sujet proche ont pu aborder le traitement de leurs données.
+Un PGD est évidemment un document **partageable** (voir [ici](#quelques-liens-utiles)) : il peut donc être utile d'en consulter quelques-uns lors du démarrage d'un projet -- voire pendant la rédaction du vôtre -- pour comprendre comment d'autres chercheurs au sujet proche ont pu aborder le traitement de leurs données.
 
 . . .
 
 Enfin, soigner la rédaction de votre PGD vous permettra en définitive de gagner du temps à plusieurs niveaux : 
 
-- en disposant d'un **document de référence** auquel vous référer (par exemple, pour retrouver vos conventions de nommage ou les mots-clefs que vous aurez identifié)
+- en disposant d'un **document de référence** auquel vous référer (par exemple, pour retrouver vos conventions de nommage ou les mots-clefs que vous aurez identifiés)
 - en limitant la portée d'éventuelles **pertes de données**, lorsque cette question a été anticipée dans le PGD (par exemple, en faisant le choix d'un système de stockage à court-terme sécurisé)
 - en réutilisant les informations qui s'y trouvent déjà formalisées, par exemple pour la rédaction d'un *data paper* (→ voir la [ressource dédiée](https://doranum.fr/data-paper-data-journal/) sur DoRANum).
 
@@ -923,11 +921,22 @@ Atelier de la donnée DatASaclay
 → <donnees-recherche@universite-paris-saclay.fr>
 
 
-## Ressources complémentaires et bibliographie
+# Ressources complémentaires et bibliographie
 
 <!-- ## Annexe 1 : R, un langage de traitement, d’analyse et de visualisation de données
 
 ## Annexe 2 : OpenRefine, un outil de nettoyage de données -->
+
+## Quelques liens utiles
+
+<br/><br/>
+
+[DoRANum](https://doranum.fr/), plateforme de formation en ligne sur la gestion et le partage des données de la recherche. Beaucoup de ressources riches et réutilisables.
+
+Des exemples de Plans de Gestion de Données rédigés sont disponibles :   
+- [directement sur DMP Opidor](https://dmp.opidor.fr/public_plans#content) (inutile de s'identifier)  
+- sur HAL, via une recherche sur le sous-type de document "plan de gestion des données" : liste complète [ici](https://hal.science/search/index/?q=%2A&rows=30&docSubType_s=DMP).
+
 
 ## Références
 
