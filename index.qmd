@@ -50,9 +50,13 @@ filters:
 email-obfuscation: javascript
 ---
 
-# Plan de la séance
+#
 
-::: {.deux-colonnes}
+Lien vers cette présentation : [https://m-salvadori.github.io/pgd_creons/](https://m-salvadori.github.io/pgd_creons/)
+
+Accéder au code source : [https://github.com/m-salvadori/pgd_creons](https://github.com/m-salvadori/pgd_creons)
+
+# Plan de la séance
 
 [01 | Introduction](#introduction)
 
@@ -63,8 +67,6 @@ email-obfuscation: javascript
 [04 | Les principes FAIR](#les-principes-fair)
 
 [05 | Le Plan de Gestion des données](#le-plan-de-gestion-des-données)
-
-:::
 
 # 01 | Introduction
 
@@ -923,13 +925,12 @@ Atelier de la donnée DatASaclay
 
 ## Ressources complémentaires et bibliographie
 
-## Annexe 1 : R, un langage de traitement, d’analyse et de visualisation de données
+<!-- ## Annexe 1 : R, un langage de traitement, d’analyse et de visualisation de données
 
-## Annexe 2 : OpenRefine, un outil de nettoyage de données
+## Annexe 2 : OpenRefine, un outil de nettoyage de données -->
 
 ## Références
 
 ::: {#refs}
-
 
 :::
